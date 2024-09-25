@@ -9,7 +9,7 @@ export default function RootLayout({
         className={`antialiased`}
       >
         {children}
-        {/* <Homepage/> */}
+       
       </body>
     </html>
   );
