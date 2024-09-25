@@ -14,9 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 // import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-
-export const description =
-  "A settings page. The settings page has a sidebar navigation and a main content area. The main content area has a form to update the store name and a form to update the plugins directory. The sidebar navigation has links to general, security, integrations, support, organizations, and advanced settings."
+import AuthorCard from "@/components/ui/author-card"
 
 function Home() {
   return (
@@ -201,11 +199,13 @@ function Home() {
         </div> */}
 
 
-          <h1>
+          <h1 className="text-7xl items-center flex text-center">
             WELCOME TO JUAN HUB
           </h1>
 
-          
+          <h2>Lorem ipsum dolor chuchu</h2>
+
+         
 
   
       </section>
