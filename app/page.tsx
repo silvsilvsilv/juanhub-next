@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { CircleUser, Menu, Package2 } from "lucide-react"
+import { CircleUser, Package2 } from "lucide-react"
 
-import { Card } from "@/components/ui/card"
+// import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 import {
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 // import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import AuthorCard from "@/components/ui/author-card"
+// import AuthorCard from "@/components/ui/author-card"
 
 function Home() {
   return (
@@ -107,24 +107,6 @@ function Home() {
           </Link>
         </nav>
 
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
         </div>
       </header>
 
@@ -199,19 +181,32 @@ function Home() {
         </div> */}
 
 
-          <h1 className="text-7xl items-center flex text-center">
-            WELCOME TO JUAN HUB
+          <h1 className="text-7xl items-center flex text-center bold">
+            Showcase your moments with ease
           </h1>
 
-          <h2>Lorem ipsum dolor chuchu</h2>
-
-         
-
-  
+          <h2>Welcome to Juan Hub! Your ultimate platform for hosting videos and photos. Discover how easy it is to share your creativity with the world</h2>
+          
+          <div>
+            <Button className="inline-flex max-w-fit">
+              Explore
+            </Button>
+            <Button variant={"secondary"} className="inline-flex max-w-fit">
+              Get started
+            </Button>
+          </div>
+          
       </section>
 
-      <section className="min-h-screen px-4" id="about">  
-        BANGSAT
+      <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" id="about">  
+        
+        <h1 className="text-7xl items-center flex text-center bold">
+          About us
+        </h1>
+        <h2>
+          Juan Hub is a video hosting and picture gallery platform that aims to make media management effortless.
+        </h2>
+
       </section>
     </div>
   )

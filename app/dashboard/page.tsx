@@ -5,7 +5,7 @@ export default function Dashboard(){
 
     return(
         <>
-           <Button> 
+          <Button> 
                 <Link href="/">BANGSAT</Link>
            </Button>
         </>
