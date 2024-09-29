@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import About from "./About";
 import Image from 'next/image';
+import DBIcon from "./ui/dbicon";
 
 import pic1 from '../app/public/1.png';
 import pic2 from '../app/public/2.png';
@@ -54,10 +55,7 @@ export default function Homepage(){
                             <div className="flex space-x-4">
                                 <div className="flex flex-col ">
                                     <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                                    </svg>
-
+                                    <DBIcon/>
                                     </div>
                                     <h3 className="mt-2 font-bold">Video Hosting</h3>
                                     <p className="text-sm">Easily upload, organize, and share your videos with just a few clicks.</p>
@@ -65,9 +63,7 @@ export default function Homepage(){
 
                                 <div className="flex flex-col ">
                                     <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                                    </svg>
+                                    <DBIcon/>
                                     </div>
                                     <h3 className="mt-2 font-bold">Picture Galleries</h3>
                                     <p className="text-sm">Create stunning galleries to showcase your images beautifully and effortlessly.</p>
@@ -85,7 +81,7 @@ export default function Homepage(){
 
             {/* Footer */}
             <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-
+            
             </section>
         </>
     );

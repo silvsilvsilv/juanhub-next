@@ -4,11 +4,17 @@ import pic4 from '../app/public/4.png';
 import pic5 from '../app/public/5.png';
 import Image from 'next/image';
 import { Button } from "./ui/button";
+import { ChevronRight, CirclePlus,ArrowUpToLineIcon,NotebookTabs } from "lucide-react";
+import Testimonials from "./Testimonials";
+// import { Link } from "lucide-react";
+// import Link from "next/link"
+
 
 export default function About(){
     return (
         <>
-            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" >
+            {/* uhh fix pls */}
+            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" id="about">
                  <div className="md:w-1/2">
                     <h1 className="text-6xl font-bold mb-4 text-center">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
@@ -19,30 +25,89 @@ export default function About(){
                 </div>
 
                 <div className="md:w-1/2 grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Image src={pic3} alt="Placeholder Image 1" width={200} height={200} className="rounded-lg" />
-                    <Image src={pic4} alt="Placeholder Image 2" width={200} height={200} className="rounded-lg" />
-                    <Image src={pic5} alt="Placeholder Image 3" width={200} height={200} className="rounded-lg" />
+                    <Image src={pic3} alt="Placeholder Image 1" width={300} height={300} className="rounded-lg" />
+                    <Image src={pic4} alt="Placeholder Image 2" width={300} height={300} className="rounded-lg" />
+                    <Image src={pic5} alt="Placeholder Image 3" width={300} height={300} className="rounded-lg" />
                 </div>
             </section>
 
-            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" > 
-                <h1 className="text-7xl items-center flex text-center bold">
-                    Unlock Your Creative Potential with Ease
-                </h1>
-                <h2>
-                    Our content management system simplifies the way you host and share your videos and images. Experience seamless organization and enhanced visibility for your work
-                </h2>
+            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
+
+                <div className="columns-2 container mx-auto px-4 py-8">
+                    <div>
+                        <h1 className="text-7xl font-bold mb-8">
+                            Unlock Your Creative Potential with Ease
+                        </h1>
+                        <p className="text-xl text-gray-700  mb-8 ">
+                            Our content management system simplifies the way you host and share your videos and images. Experience seamless organization and enhanced visibility for your work
+                        </p>
+
+                        <div className="flex justify-left space-x-4">
+                            <Button className="inline-flex max-w-fit">
+                            Learn More
+                            </Button>
+                            <Button variant="link" className="inline-flex max-w-fit">
+                            Sign Up
+                            <ChevronRight></ChevronRight>
+                            </Button>
+                        </div>
+                    </div>
+                    
+
+                    <Image src={pic5} alt="Placeholder Image 1" width={3200} height={2086} className="rounded-lg" />
+                </div>
+                
+
             </section>
 
-            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" > 
-                <h1 className="text-7xl items-center flex text-center bold">
-                    Effortlessly Upload and Manage Your Media
-                </h1>
-                <h2>
-                    Our platform simplifies the process of uploading and managing your videos and pictures. With just a few clicks, you can have your media organized and ready to share.
-                </h2>
+            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+
+                <div className="rows-2 container mx-auto px-4 py-8">
+                    <div className="md:w-1/2">
+                        <h1 className="text-6xl font-bold mb-4">Effortlessly Upload and Manage Your Media</h1>
+                        <p className="text-lg mb-8">Our platform simplifies the process of uploading and managing your videos and pictures. With just a few clicks, you can have your media organized and ready to share.</p>
+                    </div>
+
+                    <div className="md:w-auto grid grid-cols-1 md:grid-cols-3 gap-4 py-20">
+                        <div className="flex flex-col items-center">
+                            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                                <CirclePlus/>
+                            </div>
+                            <h2 className="mt-2 font-bold">Step 1: Create Your Account Today</h2>
+                            <p className="text-sm">Sign up to get started with your media journey.</p>
+                            </div>
+                            <div className="flex flex-col items-center">
+                            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                                <ArrowUpToLineIcon/>
+                            </div>
+                            <h2 className="mt-2 font-bold">Step 2: Upload Your Media Files</h2>
+                            <p className="text-sm">Easily drag and drop your videos and pictures into the platform.</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                                <NotebookTabs/>
+                            </div>
+                            <h2 className="mt-2 font-bold">Step 3: Organize and Manage Your Content</h2>
+                            <p className="text-sm">Use our intuitive tools to categorize and edit your media.</p>
+                        </div>
+
+                        <div className="flex justify-left space-x-4 py-24">
+                            <Button className="inline-flex max-w-fit">
+                            Upload
+                            </Button>
+                            <Button variant="link" className="inline-flex max-w-fit">
+                            Learn More
+                            <ChevronRight></ChevronRight>
+                            </Button>
+                        </div>
+                    </div>
+
+                    
+                </div>
                 
             </section>
+
+            <Testimonials/>
         </>
     );
 }
