@@ -14,8 +14,8 @@ import CTA from "./CTA";
 export default function About(){
     return (
         <>
-            {/* uhh fix pls */}
-            <section className="min-h-screen px-4 flex flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" id="about">
+            <div id="about" className="mb-14 bg-muted/40"></div>
+            <section className="min-h-screen px-4 flex flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" >
                  <div className="md:w-1/2">
                     <h1 className="text-6xl font-bold mb-4 text-center">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
@@ -28,32 +28,33 @@ export default function About(){
             </section>
 
                 {/* pls fix Learn More button is above Image when in 1366*768  */}
-            <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
-
+            <section className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
+                
                 <div className="columns-2 container mx-auto px-4 py-8">
-                    <div>
-                        <h1 className="text-7xl font-bold mb-8 ">
-                            Unlock Your Creative Potential with Ease
+
+                    <div >
+                        <h1 className="text-7xl font-bold mb-8">
+                        Unlock Your Creative Potential with Ease
                         </h1>
-                        <p className="text-xl text-gray-700  mb-8">
+
+                        <p className="text-xl text-gray-700  mb-8 ">
                             Our content management system simplifies the way you host and share your videos and images. Experience seamless organization and enhanced visibility for your work
                         </p>
-                    
-                        <div className="space-x-4">
+                        
+                        {/* <div className="flex justify-left space-x-4">
                             <Button className="inline-flex max-w-fit">
-                            Learn More
+                            Explore
                             </Button>
-                            <Button variant="link" className="inline-flex max-w-fit">
-                            Sign Up
-                            <ChevronRight></ChevronRight>
+                            <Button variant={"secondary"} className="inline-flex max-w-fit bg-white outline outline-1 outline-black">
+                            Get started
                             </Button>
-                        </div>
+                        </div> */}
+
                     </div>
-                    
-                    <Image src={pic5} alt="Placeholder Image 1" width={3200} height={2245} />
+
+                    <Image src={pic5} width={3200} height={2086} alt="Image number 1"></Image>
                 </div>
                 
-
             </section>
 
             <section className="px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">

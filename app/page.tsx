@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 
 
 import Homepage from "@/components/Homepage"
+import Footer from "@/components/Footer"
 
 
 // import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -25,12 +26,21 @@ function Home() {
             <Package2 className="h-6 w-6" />
             <span className="sr-only">Juan Hub</span>
           </Link>
+
+          <Link
+            href=""
+            className="text-foreground transition-colors hover:text-foreground"
+          >
+            Home
+          </Link>
+
           <Link
             href="#about"
             className="text-foreground transition-colors hover:text-foreground"
           >
             About Us
           </Link>
+          
           <Link
             href="#contact"
             className="text-muted-foreground transition-colors hover:text-foreground"
@@ -63,7 +73,8 @@ function Home() {
         <Homepage/>
          
       </main>
-      
+
+      <Footer/>
     </div>
   )
 }
