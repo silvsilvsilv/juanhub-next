@@ -30,7 +30,7 @@ export default function Homepage(){
                             <Button className="inline-flex max-w-fit">
                             Explore
                             </Button>
-                            <Button variant={"secondary"} className="inline-flex max-w-fit">
+                            <Button variant={"secondary"} className="inline-flex max-w-fit bg-white outline outline-1 outline-black">
                             Get started
                             </Button>
                         </div>
@@ -43,7 +43,7 @@ export default function Homepage(){
           
             </section>
 
-            <section className="min-h-screen px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">  
+            <section className="px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">  
 
                 <div  className="columns-2 container mx-auto px-4 py-8">
 
@@ -79,10 +79,7 @@ export default function Homepage(){
 
             <About/>
 
-            {/* Footer */}
-            <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-            
-            </section>
+          
         </>
     );
 }

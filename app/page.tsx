@@ -43,7 +43,7 @@ function Home() {
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative space-x-4">
               <Link href="">
-                <Button variant="secondary">
+                <Button variant="secondary" className="bg-white outline outline-1 outline-black">
                   Join
                 </Button>
               </Link>
@@ -63,7 +63,7 @@ function Home() {
         <Homepage/>
          
       </main>
-     
+      
     </div>
   )
 }
