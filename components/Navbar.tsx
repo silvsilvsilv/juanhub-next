@@ -6,14 +6,11 @@ import { Button } from "@/components/ui/button"
 
 import DBIcon from "../components/ui/dbicon";
 
-import Homepage from "@/components/Homepage"
-import Footer from "@/components/Footer"
-
 
 // import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 // import AuthorCard from "@/components/ui/author-card"
 
-function Home() {
+function Navbar() {
   return (
     // Navbar
      <div className="flex min-h-screen w-full flex-col">
@@ -69,15 +66,9 @@ function Home() {
         </div>
       </header>
 
-      <main>
-        <Homepage/>
-         
-      </main>
-
-      <Footer/>
     </div>
   )
 }
 
-export default Home;
+export default Navbar;
 

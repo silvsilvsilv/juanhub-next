@@ -47,7 +47,9 @@ export default function Homepage(){
 
                 <div  className="columns-2 container mx-auto px-4 py-8">
 
-                    <div>
+                    <Image src={pic2} width={3200} height={2373} alt="Image number 2"/>
+
+                    <div className="ml-10">
                             <h1 className="text-5xl font-bold mb-4 ">Discover the Ultimate Content Management System for Your Media Needs</h1>
 
                             <p className="text-xl text-gray-700 mb-8">Our platform simplifies video hosting and picture galleries, making media management effortless. Experience a user-friendly interface designed for everyone, from beginners to pros.</p>
@@ -71,15 +73,12 @@ export default function Homepage(){
                             </div>
                     </div>
 
-                    <Image src={pic2} width={3200} height={2373} alt="Image number 2"/>
-
                 </div>
         
             </section>
 
             <About/>
 
-          
         </>
     );
 }
