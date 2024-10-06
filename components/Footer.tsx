@@ -6,7 +6,7 @@ export default function Footer(){
         <>
             {/* Footer */}
             <footer className="bg-black text-white py-6">
-            <div className="container mx-auto">   
+            <div className="container mx-auto">  
 
                 <div className="flex flex-col md:flex-row justify-between">
                     <div className="mb-4 md:mb-0">
@@ -21,16 +21,16 @@ export default function Footer(){
                         <h3 className="text-xl font-bold">Quick Links</h3>
                         <ul>
                             <li><a href="/" className="hover:text-gray-300">Home Page</a></li>
-                            <li><a href="/" className="hover:text-gray-300">About Us</a></li>
-                            <li><a href="/" className="hover:text-gray-300">Contact Us</a></li>
+                            <li><a href="#about" className="hover:text-gray-300">About Us</a></li>
+                            <li><a href="#contact" className="hover:text-gray-300">Contact Us</a></li>
                         </ul>
                     </div>
                     <div className="mb-4 md:mb-0">
                         <h3 className="text-xl font-bold">Connect With Us</h3>
                         <ul className="flex space-x-4">
-                            <li><a href="/" className="hover:text-gray-300"><FacebookIcon /></a></li>
-                            <li><a href="/" className="hover:text-gray-300"><InstagramIcon/></a></li>
-                            <li><a href="/" className="hover:text-gray-300"><LinkedinIcon/></a></li>
+                            <li><a href="/" className="hover:text-gray-300" title="Facebook"><FacebookIcon /></a></li>
+                            <li><a href="/" className="hover:text-gray-300" title="Instagram"><InstagramIcon/></a></li>
+                            <li><a href="/" className="hover:text-gray-300" title="LinkedIn"><LinkedinIcon/></a></li>
                         </ul>
                     </div>
                     <div className="mb-4 md:mb-0">
@@ -42,8 +42,7 @@ export default function Footer(){
                     <p className="text-sm text-center">&copy; 2024 Juan Hub. All rights reserved.</p>
                     <ul className="flex justify-center space-x-2 mt-2">
                         <li><a href="/" className="hover:text-gray-300">Privacy Policy</a></li>
-                        <li><a href="/" className="hover:text-gray-300">Terms of Service</a></li>   
-
+                        <li><a href="/" className="hover:text-gray-300">Terms of Service</a></li> 
                         <li><a href="/" className="hover:text-gray-300">Cookie Settings</a></li>
                     </ul>
                 </div>

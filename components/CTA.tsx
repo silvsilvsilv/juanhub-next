@@ -3,8 +3,9 @@ import {Button} from './ui/button';
 
 export default function CTA(){
     return(
-        <>
-            <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+        <>  
+            <div id="contact" className="mb-14 bg-muted/40"></div>
+            <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
                 <div className="columns-2 container mx-auto px-4 py-8">
 
                     <div>
