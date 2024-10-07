@@ -1,8 +1,16 @@
 /* Reset default styles */
-body {
+.login_container {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  position:absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* font-family: Arial, sans-serif; */
+  background-image: linear-gradient(90deg, white, rgb(37, 167, 241));
 }
 
 /* Form styling */
@@ -13,16 +21,24 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 15px;
+  font-size: 50px /* 72px */;
+  line-height: 1;
+  font-weight: 700;
 }
 
 p {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 17px /* 20px */;
+  line-height: 1.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity)) /* #374151 */;
 }
 
 .form-group {
@@ -56,4 +72,9 @@ input, select {
 .deploy-button {
   background-color: #007bff;
   color: #fff;
+}
+
+.text-emphasis{
+  font-weight: bold;
+  text-decoration: underline;
 }
