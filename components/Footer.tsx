@@ -8,7 +8,7 @@ export default function Footer(){
             <footer className="bg-black text-white py-6">
             <div className="container mx-auto">  
 
-                <div className="flex flex-col md:flex-row justify-between">
+                <div className="flex flex-col md:flex-row justify-between phone:hidden desktop:flex">
                     <div className="mb-4 md:mb-0">
                         <h3 className="text-xl font-bold">Juan Hub</h3>
                         <p className="mt-2">Subscribe to our newsletter for the latest features, updates, and exclusive content.</p>

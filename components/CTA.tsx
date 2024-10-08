@@ -6,10 +6,10 @@ export default function CTA(){
         <>  
             <div id="contact" className="mb-14 bg-muted/40"></div>
             <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
-                <div className="columns-2 container mx-auto px-4 py-8">
+                <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
 
                     <div>
-                        <h1 className="text-6xl font-bold mb-8">
+                        <h1 className="text-6xl font-bold mb-8 desktop:text-6xl phone:text-4xl">
                             Start Your Creative Journey Today
                         </h1>
 

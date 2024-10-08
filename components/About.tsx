@@ -17,7 +17,7 @@ export default function About(){
             <div id="about" className="mb-14 bg-muted/40"></div>
             <section className="min-h-screen px-4 flex flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" >
                  <div className="md:w-1/2">
-                    <h1 className="text-6xl font-bold mb-4 text-center">Experience seamless high-quality video streaming for all your content needs.</h1>
+                    <h1 className="text-6xl font-bold mb-4 text-center desktop:text-6xl phone:text-4xl">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
                     <div className="flex justify-center space-x-4">
                         <Button >Learn More</Button>
@@ -30,10 +30,10 @@ export default function About(){
                 {/* pls fix Learn More button is above Image when in 1366*768  */}
             <section className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
                 
-                <div className="columns-2 container mx-auto px-4 py-8">
+                <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
 
-                    <div >
-                        <h1 className="text-7xl font-bold mb-8">
+                    <div>
+                        <h1 className="text-7xl font-bold mb-8 desktop:text-7xl phone:text-4xl">
                         Unlock Your Creative Potential with Ease
                         </h1>
 
@@ -52,7 +52,7 @@ export default function About(){
 
                     </div>
 
-                    <Image src={pic5} width={3200} height={2086} alt="Image number 1"></Image>
+                    <Image src={pic5} width={3200} height={2086} alt="Image number 1" className="phone:mt-10"></Image>
                 </div>
                 
             </section>
@@ -61,7 +61,7 @@ export default function About(){
 
                 <div className="rows-2 container mx-auto px-4 py-8">
                     <div className="md:w-1/2">
-                        <h1 className="text-6xl font-bold mb-4">Effortlessly Upload and Manage Your Media</h1>
+                        <h1 className="text-6xl font-bold mb-4 desktop:text-6xl phone:text-4xl">Effortlessly Upload and Manage Your Media</h1>
                         <p className="text-lg mb-8">Our platform simplifies the process of uploading and managing your videos and pictures. With just a few clicks, you can have your media organized and ready to share.</p>
                     </div>
 

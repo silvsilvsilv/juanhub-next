@@ -1,4 +1,5 @@
 import Link from "next/link"
+// import { Ham } from "lucide-react";
 // import { Package2 } from "lucide-react"
 
 // import { Card } from "@/components/ui/card"
@@ -21,7 +22,7 @@ function Home() {
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 text-nowrap">
           <Link
             href="/"
-            className="flex items-center gap-2 text-lg font-semibold md:text-base"
+            className="flex items-center gap-2 text-lg font-semibold md:text-base phone:text-base"
           >
             <DBIcon/>
             <span className="sr-only">Juan Hub</span>
@@ -48,8 +49,12 @@ function Home() {
             Contact Us
           </Link>
         </nav>
+
+        <div className="flex desktop:hidden phone:flex">
+          <DBIcon/>
+        </div>
         
-        <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <div className="w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 phone:hidden desktop:flex">
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative space-x-4">
               <Link href="/register">

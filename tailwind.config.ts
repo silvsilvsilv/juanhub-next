@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+/** @type {import('tailwindcss') Config} */
 
 const config: Config = {
     darkMode: ["class"],
@@ -55,7 +56,18 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		screens:{
+			'phone': '300px',
+			// => @media (max-width: 640px) { ... }
+
+			'ipad': '700px',
+			// => @media (min-width: 768px) { ... }
+
+			'ipadpro': '835px',
+
+			'desktop': '1000px'
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
