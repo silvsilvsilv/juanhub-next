@@ -7,16 +7,6 @@ import Link from "next/link";
 import './styles.css';
 // import '../globals.css';
 
-// <div className="flex flex-col sm:flex-row">
-            // <div className="w-full sm:w-1/2">
-            // a
-            //     </div>
-            // <div className="w-full sm:w-1/2">
-            // b
-            //     </div>
-            // </div>   
-
-
 export default function Dashboard(){
 
     return(

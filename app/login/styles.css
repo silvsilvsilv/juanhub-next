@@ -5,12 +5,17 @@
   margin: 0;
   padding: 0;
   position:absolute;
+  
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   /* font-family: Arial, sans-serif; */
   background-image: linear-gradient(90deg, white, rgb(37, 167, 241));
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Form styling */
