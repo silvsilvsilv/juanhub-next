@@ -1,56 +1,69 @@
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 // import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import Link from "next/link";
 
 // import Navbar from "@/components/Navbar";
 
-import './styles.css';
+// import './styles.css';
+import './main.css';
+import './util.css';
 // import '../globals.css';
+
+import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
 export default function Dashboard(){
 
+    const styling = {
+      backgroundImage: `url(${bgPic.src})`,
+
+    };
+
     return(
         <>  
+          <div className="limiter">
+            <div className="container-login100">
+              <div className="wrap-login100">
+                <form className="login100-form validate-form">
+                  <span className="login100-form-title p-b-43">
+                    Login to continue
+                  </span>
+                  
+                  
+                  <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input className="input100 has-val" type="text" name="email"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100 has-val">Email</span>
+                  </div>
+                  
+                  
+                  <div className="wrap-input100 validate-input" data-validate="Password is required">
+                    <input className="input100 has-val" type="password" name="pass"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100">Password</span>
+                  </div>
 
-              {/* <Card className="w-[350px] items-center justify-center">
-                  <CardHeader>
-                      <CardTitle>Log In</CardTitle>
-                      <CardDescription>Log In pls</CardDescription>
-                  </CardHeader>
+                  <div className="flex-sb-m w-full p-t-3 p-b-32">
 
-                  <CardContent>
-                      CARD CONTENT
-                  </CardContent>
-              </Card> */}
-          <div className="login_container">
-              <form id="project-form">
-                <h2>Log In</h2>
-                <p>Input your credentials to get started.</p>
-
-                <div className="form-group">
-                  <label htmlFor="project-name">Email</label>
-                  <input type="text" id="project-name" name="project-name" placeholder="Email"/>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="framework">Password</label>
-                  <input type="password" placeholder="Password"/>
-                </div>
-
-                <div>
-                        <p>{`Don't have an account? `}
-                            <Link href="/register" className="text-emphasis">
-                                Register
-                            </Link>
-                        </p>
+                    <div>
+                      <p className="txt1">
+                        New to Juan Hub? <a className="txt1 text-bold" href="/register">Register</a>
+                      </p>
                     </div>
+                  </div>
+              
 
-                <div className="button-group">
-                  <Link href="/">
-                    <Button>Log In</Button>
-                  </Link>
+                  <div className="container-login100-form-btn">
+                    <button className="login100-form-btn">
+                      <Link href="/" className="text-white" >Login</Link>
+                    </button>
+                  </div>
+                  
+                </form>
+
+                <div className="login100-more" style={styling}>
                 </div>
-              </form>
+              </div>
+            </div>
           </div>
         </>
     );

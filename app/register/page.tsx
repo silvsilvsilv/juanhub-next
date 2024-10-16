@@ -1,52 +1,79 @@
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 import '../login/styles.css';
+import '../login/main.css';
+import '../login/util.css';
 
+import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
 export default function Dashboard(){
 
+     const styling = {
+      backgroundImage: `url(${bgPic.src})`,
+
+    };
+
     return(
         <>  
-          <div className="login_container">
-                <form id="project-form">
-                    <h2>Register</h2>
-                    <p>Input your information to join us at Juan Hub.</p>
+          <div className="limiter">
+            <div className="container-login100">
+              <div className="wrap-login100">
+                
+                <div className="login100-more" style={styling}>
+                </div>
 
-                    <div className="form-group">
-                        <label htmlFor="project-name">Name</label>
-                        <input type="text" id="project-name" name="project-name" placeholder="Name"/>
-                    </div>
+                <form className="login100-form validate-form">
+                  <span className="login100-form-title p-b-43">
+                    Create an account
+                  </span>
+                  
+                  <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input className="input100 has-val" type="text" name="name"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100 has-val">Name</span>
+                  </div>
 
-                    <div className="form-group">
-                        <label htmlFor="project-name">Email</label>
-                        <input type="text" id="project-name" name="project-name" placeholder="Email"/>
-                    </div>
+                  <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input className="input100 has-val" type="text" name="email"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100 has-val">Email</span>
+                  </div>
+                  
+                  
+                  <div className="wrap-input100 validate-input" data-validate="Password is required">
+                    <input className="input100 has-val" type="password" name="pass"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100">Password</span>
+                  </div>
 
-                    <div className="form-group">
-                        <label htmlFor="framework">Password</label>
-                        <input type="password" placeholder="Password"/>
-                    </div>
+                  <div className="wrap-input100 validate-input" data-validate="Password is required">
+                    <input className="input100 has-val" type="password" name="confirmPass"/>
+                    <span className="focus-input100"></span>
+                    <span className="label-input100">Confirm Password</span>
+                  </div>
 
-                    <div className="form-group">
-                        <label htmlFor="framework">Confirm Password</label>
-                        <input type="password" placeholder="Password"/>
-                    </div>    
-                    
+                  <div className="flex-sb-m w-full p-t-3 p-b-32">
+
                     <div>
-                        <p>{`Already have an account? `}
-                            <Link href="/login" className="text-emphasis">
-                                Log In
-                            </Link>
-                        </p>
+                      <p className="txt1">
+                        Already have an account? <a className="txt1 text-bold" href="/login">Log In</a>
+                      </p>
                     </div>
+                  </div>
+              
 
-                    <div className="button-group">
-                        <Link href="/">
-                        <Button>Register</Button>
-                        </Link>
-                    </div>
+                  <div className="container-login100-form-btn">
+                    <button className="login100-form-btn">
+                      <Link href="/" className="text-white" >Register</Link>
+                    </button>
+                  </div>
+                  
                 </form>
+
+                
+              </div>
+            </div>
           </div>
         </>
     );
