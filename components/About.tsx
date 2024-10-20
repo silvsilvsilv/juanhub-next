@@ -52,7 +52,7 @@ export default function About(){
 
                     </div>
 
-                    <Image src={pic5} width={3200} height={2086} alt="Image number 1" className="phone:mt-10"></Image>
+                    <Image src={pic5} width={3200} height={2086} alt="Image number 1" className="phone:mt-10" priority={true}></Image>
                 </div>
                 
             </section>

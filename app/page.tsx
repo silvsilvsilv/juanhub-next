@@ -25,12 +25,13 @@ function Home() {
             className="flex items-center gap-2 text-lg font-semibold md:text-base phone:text-base"
           >
             <DBIcon/>
+            <span className="font-['JetBrains_Mono']">Juan Hub</span>
             <span className="sr-only">Juan Hub</span>
           </Link>
 
           <Link
             href="/"
-            className="text-foreground transition-colors hover:text-foreground"
+            className="text-foreground transition-colors hover:text-white hover:bg-black"
           >
             Home
           </Link>
@@ -76,7 +77,6 @@ function Home() {
 
       <main>
         <Homepage/>
-         
       </main>
 
       <Footer/>

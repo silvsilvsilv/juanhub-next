@@ -1,70 +1,104 @@
-// import { Button } from "@/components/ui/button";
-// import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+'use client';
 import Link from "next/link";
+import { ArrowLeft } from 'lucide-react';
 
-// import Navbar from "@/components/Navbar";
+// Importing styles
+import styles from './main.module.css';
+import utils from './util.module.css';
 
-// import './styles.css';
-import './main.css';
-import './util.css';
-// import '../globals.css';
+import { useState } from "react";
 
+// Importing the background image
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
-export default function Dashboard(){
+export default function Dashboard() {
 
-    const styling = {
-      backgroundImage: `url(${bgPic.src})`,
+  // State for user credentials
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
 
-    };
+  // Background styling for the login page
+  const styling = {
+    backgroundImage: `url(${bgPic.src})`,
+  };
 
-    return(
-        <>  
-          <div className="limiter">
-            <div className="container-login100">
-              <div className="wrap-login100">
-                <form className="login100-form validate-form">
-                  <span className="login100-form-title p-b-43">
-                    Login to continue
-                  </span>
-                  
-                  
-                  <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input className="input100 has-val" type="text" name="email"/>
-                    <span className="focus-input100"></span>
-                    <span className="label-input100 has-val">Email</span>
-                  </div>
-                  
-                  
-                  <div className="wrap-input100 validate-input" data-validate="Password is required">
-                    <input className="input100 has-val" type="password" name="pass"/>
-                    <span className="focus-input100"></span>
-                    <span className="label-input100">Password</span>
-                  </div>
+  // Handler for input changes
+  const handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
 
-                  <div className="flex-sb-m w-full p-t-3 p-b-32">
+  return (
+    <div className={styles['login-container']}>
+      <div className={styles['limiter']}>
+        <div className={styles['container-login100']}>
+          <div className={styles['wrap-login100']}>
+            <form className={styles['login100-form']}>
 
-                    <div>
-                      <p className="txt1">
-                        New to Juan Hub? <a className="txt1 text-bold" href="/register">Register</a>
-                      </p>
-                    </div>
-                  </div>
-              
+              {/* Back Link with Arrow */}
+              <Link href="/" className={utils['text-black']}>
+                <ArrowLeft className={utils['m-b-40']} />
+              </Link>
 
-                  <div className="container-login100-form-btn">
-                    <button className="login100-form-btn">
-                      <Link href="/" className="text-white" >Login</Link>
-                    </button>
-                  </div>
-                  
-                </form>
+              {/* Login Title */}
+              <span className={`${styles['login100-form-title']} ${utils['p-b-43']}`}>
+                Login to continue
+              </span>
 
-                <div className="login100-more" style={styling}>
+              {/* Email Input */}
+              <div className={styles['wrap-input100']} data-validate="Valid email is required: ex@abc.xyz">
+                <input
+                  className={`${styles['input100']} ${user.email ? styles['has-val'] : ''}`}
+                  type="text"
+                  name="email"
+                  onChange={handleUser}
+                  value={user.email}
+                />
+                <span className={styles['focus-input100']}></span>
+                <span className={styles['label-input100']}>Email</span>
+              </div>
+
+              {/* Password Input */}
+              <div className={styles['wrap-input100']} data-validate="Password is required">
+                <input
+                  className={`${styles['input100']} ${user.password ? styles['has-val'] : ''}`}
+                  type="password"
+                  name="password"
+                  onChange={handleUser}
+                  value={user.password}
+                />
+                <span className={styles['focus-input100']}></span>
+                <span className={styles['label-input100']}>Password</span>
+              </div>
+
+              {/* Register Link */}
+              <div className={`${utils['flex-sb-m']} ${utils['w-full']} ${utils['p-t-3']} ${utils['p-b-32']}`}>
+                <div>
+                  <p className={`${styles['txt1']} ${styles['paragraph']}`}>
+                    New to Juan Hub? <Link className={styles['txt1']} href="/register"><strong>Register</strong></Link>
+                  </p>
                 </div>
               </div>
-            </div>
+
+              {/* Submit Button */}
+              <div className={styles['container-login100-form-btn']}>
+                <button className={styles['login100-form-btn']}>
+                  <Link href="/" className={styles['text-white']}>Login</Link>
+                </button>
+              </div>
+
+            </form>
+
+            {/* Additional Section (Background Image) */}
+            <div className={styles['login100-more']} style={styling}></div>
           </div>
-        </>
-    );
+        </div>
+      </div>
+    </div>
+  );
 }

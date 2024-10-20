@@ -37,7 +37,7 @@ export default function Homepage(){
 
                     </div>
                     
-                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="phone:mt-10"></Image>
+                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="phone:mt-10" priority={true}></Image>
                 </div>
                 
           
@@ -47,7 +47,7 @@ export default function Homepage(){
 
                 <div  className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
 
-                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10"/>
+                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10" priority={true}/>
 
                     <div className="ml-10">
                             <h1 className="text-5xl font-bold mb-4 desktop:text-5xl phone:text-2xl">Discover the Ultimate Content Management System for Your Media Needs</h1>

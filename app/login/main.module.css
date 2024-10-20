@@ -40,7 +40,7 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-* {
+/* * {
 	margin: 0px; 
 	padding: 0px; 
 	box-sizing: border-box;
@@ -49,10 +49,10 @@
 body, html {
 	height: 100%;
 	font-family: Poppins,sans-serif;
-}
+} */
 
 /*---------------------------------------------*/
-a {
+/* a {
 	font-family: Poppins,sans-serif;
 	font-size: 14px;
 	line-height: 1.7;
@@ -71,10 +71,10 @@ a:focus {
 a:hover {
 	text-decoration: none;
   color: #000000;
-}
+} */
 
 /*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
+/* h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
 
@@ -89,11 +89,11 @@ p {
 ul, li {
 	margin: 0px;
 	list-style-type: none;
-}
+} */
 
 
 /*---------------------------------------------*/
-input {
+/* input {
 	outline: none;
 	border: none;
 }
@@ -131,10 +131,10 @@ textarea:-ms-input-placeholder { color: #999999;}
 label {
   display: block;
   margin: 0;
-}
+} */
 
 /*---------------------------------------------*/
-button {
+/* button {
 	outline: none !important;
 	border: none;
 	background: transparent;
@@ -146,7 +146,112 @@ button:hover {
 
 iframe {
 	border: none !important;
+} */
+
+
+/* /////////////////////////////////////////////////////////////// */
+/* New Restyle Tag */
+
+/* Wrapper Class to Limit Styles to a Specific Page/Component */
+.container {
+  height: 100%;
+  font-family: Poppins, sans-serif;
 }
+
+.link {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
+  transition: all 0.4s;
+}
+
+.link:focus {
+  outline: none !important;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+.heading h1,
+.heading h2,
+.heading h3,
+.heading h4,
+.heading h5,
+.heading h6 {
+  margin:0px;
+}
+
+.paragraph p {
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0;
+}
+
+.list ul, .list li {
+  margin: 0;
+  list-style-type: none;
+}
+
+/* Input styles scoped locally */
+.input {
+  outline: none;
+  border: none;
+}
+
+.input:focus {
+  border-color: transparent !important;
+}
+
+.input::placeholder {
+  color: #999999;
+}
+
+.input:focus::placeholder {
+  color: transparent;
+}
+
+.textarea {
+  outline: none;
+  border: none;
+}
+
+.textarea:focus {
+  border-color: transparent !important;
+}
+
+.textarea::placeholder {
+  color: #999999;
+}
+
+.textarea:focus::placeholder {
+  color: transparent;
+}
+
+.label {
+  display: block;
+  margin: 0;
+}
+
+.button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.iframe {
+  border: none !important;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ utility ]*/
@@ -205,6 +310,7 @@ iframe {
   justify-content: center;
   align-items: center;
   background: #f2f2f2;
+ 
 }
 
 
@@ -220,7 +326,7 @@ iframe {
   flex-wrap: wrap;
   align-items: stretch;
   flex-direction: row-reverse;
-
+  
 }
 
 /*==================================================================
@@ -236,6 +342,8 @@ iframe {
   height: auto;
   object-fit: contain;
   max-width: 100%;
+
+  background-image: url('../public/reshot-illustration-website-design-ZK3N2W7CDX.png');
 
   /* background-image: "../public/reshot-illustration-website-design-ZK3N2W7CDX.png"; */
 }
@@ -294,6 +402,7 @@ iframe {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
   margin-bottom: 10px;
+  
 }
 
 .label-input100 {
@@ -325,7 +434,10 @@ iframe {
   color: #555555;
   line-height: 1.2;
   padding: 0 26px;
+  
+  outline:none;
 }
+
 
 input.input100 {
   height: 100%;
@@ -333,6 +445,8 @@ input.input100 {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+
+  border:none;
 }
 
 /*---------------------------------------------*/
@@ -361,6 +475,8 @@ input.input100 {
   -ms-transform: scaleX(1.1) scaleY(1.3);
   -o-transform: scaleX(1.1) scaleY(1.3);
   transform: scaleX(1.1) scaleY(1.3);
+
+  
 }
 
 .input100:focus + .focus-input100 {
