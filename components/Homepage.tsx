@@ -16,7 +16,7 @@ export default function Homepage(){
     return(
         <>
             <div className="pb-14 bg-muted/40"></div>
-            <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+            <section className="flex desktop:min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 phone:pb-10">
 
                 <div className="flex flex-col container mx-auto px-4 desktop:py-8 desktop:flex-row">
 
@@ -40,17 +40,17 @@ export default function Homepage(){
 
                     </div>
                     
-                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="phone:mt-10 ipadpro:mx-0" priority={true}></Image>
+                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="mt-10 w-auto h-auto" priority={true}></Image>
                 </div>
                 
           
             </section>
 
-            <section className="px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">  
+            <section className="px-4 flex desktop:min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 phone:pb-10">  
 
-                <div  className="flex flex-col container mx-auto px-4 desktop:py-8 desktop:flex-row ">
+                <div  className="flex flex-col container mx-auto desktop:py-8 desktop:flex-row ">
 
-                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10 phone:hidden mr-10 w-auto h-auto" priority={true}/>
+                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10 hidden mr-10 w-auto h-auto desktop:flex" priority={true}/>
 
                     <div>
                             <h1 className="text-7xl font-bold mb-4 desktop:text-7xl phone:text-4xl">Discover the Ultimate Content Management System for Your Media Needs</h1>
@@ -76,7 +76,7 @@ export default function Homepage(){
                             </div>
                     </div>
 
-                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mt-10 desktop:hidden ipadpro:hidden ipad:hidden w-auto h-auto" priority={true}/>
+                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="mt-10 desktop:hidden w-auto h-auto" priority={true}/>
 
                 </div>
         

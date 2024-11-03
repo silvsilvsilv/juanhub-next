@@ -3,15 +3,27 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+ 
 import DBIcon from "../components/ui/dbicon";
-// import { Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import Homepage from "@/components/Homepage"
 import Footer from "@/components/Footer"
 import { useState, useEffect } from "react";
 
 function Home() {
-  const [isScrolledPast, setIsScrolledPast] = useState({about:false, contact:false });
+
+  interface States{
+    about:boolean,
+    contact:boolean,
+  }
+  const [isScrolledPast, setIsScrolledPast] = useState<States>({about:false, contact:false });
 
   useEffect(() => {
     const about : HTMLElement | null = document.getElementById("about");
@@ -26,14 +38,14 @@ function Home() {
         const newIsScrolledPast = { ...isScrolledPast };
 
         // Check the 'about' section
-        if ((sectionTop.about <= screenHeight) && (sectionTop.contact >= screenHeight)) {
+        if ( ((sectionTop.about !== undefined) && (sectionTop.about <= screenHeight)) && ((sectionTop.contact !== undefined) && (sectionTop.contact >= screenHeight)) ) {
           newIsScrolledPast.about = true;
         } else {
           newIsScrolledPast.about = false;
         }
 
         // Check the 'contact' section
-        if (sectionTop.contact <= screenHeight) {
+        if (sectionTop.contact !== undefined && sectionTop.contact <= screenHeight) {
           newIsScrolledPast.contact = true;
         } else {
           newIsScrolledPast.contact = false;
@@ -88,8 +100,9 @@ function Home() {
           </Link>
         </nav>
 
-        <div className="flex desktop:hidden phone:flex ipad:hidden ipadpro:hidden">
+        <div className="flex desktop:hidden ipad:hidden ipadpro:hidden text-nowrap">
           <DBIcon/>
+          <span className="font-['JetBrains_Mono'] ml-3">Juan Hub</span>
         </div>
         
         <div className="w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 phone:hidden desktop:flex ipadpro:flex ipad:flex">
@@ -107,12 +120,24 @@ function Home() {
                 </Button>
               </Link>
             </div>
+            
           </form>
-          
         </div>
+        <div className="w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 phone:flex desktop:hidden ipadpro:hidden ipad:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Menu className="ml-auto"/>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Join</DropdownMenuItem>
+              <DropdownMenuItem>Log In</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        
       </header>
 
-      <main>
+      <main className="bg-muted/40">
         <Homepage/>
       </main>
 
