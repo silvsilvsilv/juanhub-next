@@ -58,15 +58,16 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 		screens:{
-			'phone': '300px',
-			// => @media (max-width: 640px) { ... }
+			// iPad Pro (min-width: 835px and max-width: 1030px)
+			'ipadpro': {'min': '835px', 'max': '1030px'},
 
-			'ipad': '700px',
-			// => @media (min-width: 768px) { ... }
+			// iPad (min-width: 700px and max-width: 835px)
+			'ipad': {'min': '700px', 'max': '835px'},
 
-			'ipadpro': '835px',
+			// Mobile (max-width: 600px)
+			'phone': {'max': '600px'},
 
-			'desktop': '1000px'
+			'desktop': '1030px',
 		},
   	}
   },

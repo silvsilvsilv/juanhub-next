@@ -1,8 +1,11 @@
 import React from "react";
-import { Button } from "./ui/button";
+
 import About from "./About";
+
 import Image from 'next/image';
 import DBIcon from "./ui/dbicon";
+
+import { Button } from "./ui/button";
 
 import pic1 from '../app/public/1.png';
 import pic2 from '../app/public/2.png';
@@ -12,10 +15,10 @@ export default function Homepage(){
 
     return(
         <>
-            {/* Header */}
+            <div className="pb-14 bg-muted/40"></div>
             <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
 
-                <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
+                <div className="flex flex-col container mx-auto px-4 desktop:py-8 desktop:flex-row">
 
                     <div>
                         <h1 className="font-bold mb-8 text-7xl desktop:text-7xl phone:text-4xl">
@@ -37,7 +40,7 @@ export default function Homepage(){
 
                     </div>
                     
-                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="phone:mt-10" priority={true}></Image>
+                    <Image src={pic1} width={500} height={300} alt="Image number 1" className="phone:mt-10 ipadpro:mx-0" priority={true}></Image>
                 </div>
                 
           
@@ -45,12 +48,12 @@ export default function Homepage(){
 
             <section className="px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">  
 
-                <div  className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
+                <div  className="flex flex-col container mx-auto px-4 desktop:py-8 desktop:flex-row ">
 
-                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10" priority={true}/>
+                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mb-10 phone:hidden mr-10 w-auto h-auto" priority={true}/>
 
-                    <div className="ml-10">
-                            <h1 className="text-5xl font-bold mb-4 desktop:text-5xl phone:text-2xl">Discover the Ultimate Content Management System for Your Media Needs</h1>
+                    <div>
+                            <h1 className="text-7xl font-bold mb-4 desktop:text-7xl phone:text-4xl">Discover the Ultimate Content Management System for Your Media Needs</h1>
 
                             <p className="text-xl text-gray-700 mb-8">Our platform simplifies video hosting and picture galleries, making media management effortless. Experience a user-friendly interface designed for everyone, from beginners to pros.</p>
 
@@ -72,6 +75,8 @@ export default function Homepage(){
                                 </div>
                             </div>
                     </div>
+
+                    <Image src={pic2} width={500} height={300} alt="Image number 2" className="phone:mt-10 desktop:hidden ipadpro:hidden ipad:hidden w-auto h-auto" priority={true}/>
 
                 </div>
         

@@ -1,23 +1,21 @@
 import React from "react";
-// import pic3 from '../app/public/3.png';
-// import pic4 from '../app/public/4.png';
-import pic5 from '../app/public/5.png';
+
+import pic4 from '../app/public/4.png';
+
 import Image from 'next/image';
 import { Button } from "./ui/button";
+
 import { ChevronRight, CirclePlus,ArrowUpToLineIcon,NotebookTabs } from "lucide-react";
 import CTA from "./CTA";
-
-// import { Link } from "lucide-react";
-// import Link from "next/link"
 
 
 export default function About(){
     return (
         <>
-            <div id="about" className="mb-14 bg-muted/40"></div>
-            <section className="min-h-screen px-4 flex flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10 items-center" >
-                 <div className="md:w-1/2">
-                    <h1 className="text-6xl font-bold mb-4 text-center desktop:text-6xl phone:text-4xl">Experience seamless high-quality video streaming for all your content needs.</h1>
+            <div id="about" className="pb-14 bg-muted/40"></div>
+            <section className="desktop:min-h-screen px-4 flex flex-1 flex-col bg-muted/40 p-4 md:gap-8 md:p-10 items-center phone:py-0 phone:mb-10" >
+                 <div className="md:w-1/2 phone:py-0 phone:mb-0">
+                    <h1 className="text-6xl font-bold mb-4 text-center desktop:text-6xl phone:text-4xl phone:text-left">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
                     <div className="flex justify-center space-x-4">
                         <Button >Learn More</Button>
@@ -30,7 +28,7 @@ export default function About(){
                 {/* pls fix Learn More button is above Image when in 1366*768  */}
             <section className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10" >
                 
-                <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8">
+                <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8 ipad:flex-col">
 
                     <div>
                         <h1 className="text-7xl font-bold mb-8 desktop:text-7xl phone:text-4xl">
@@ -52,16 +50,16 @@ export default function About(){
 
                     </div>
 
-                    <Image src={pic5} width={3200} height={2086} alt="Image number 1" className="phone:mt-10" priority={true}></Image>
+                    <Image src={pic4} width={500} height={400} alt="Image number 4" className="phone:mt-10 ipad:mt-10 w-auto h-auto " priority={true}></Image>
                 </div>
                 
             </section>
 
-            <section className="px-4 flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+            <section className="px-4 flex desktop:min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
 
-                <div className="rows-2 container mx-auto px-4 py-8">
-                    <div className="md:w-1/2">
-                        <h1 className="text-6xl font-bold mb-4 desktop:text-6xl phone:text-4xl">Effortlessly Upload and Manage Your Media</h1>
+                <div className="rows-2 container mx-auto px-4 py-8 phone:mb-0">
+                    <div className="w-full desktop:w-1/2">
+                        <h1 className="text-6xl font-bold mb-4 desktop:text-6xl phone:text-4xl phone:text-center ipad:text-center">Effortlessly Upload and Manage Your Media</h1>
                         <p className="text-lg mb-8">Our platform simplifies the process of uploading and managing your videos and pictures. With just a few clicks, you can have your media organized and ready to share.</p>
                     </div>
 
