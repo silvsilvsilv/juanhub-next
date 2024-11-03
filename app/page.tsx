@@ -61,7 +61,7 @@ function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isScrolledPast]);
 
 
   return (

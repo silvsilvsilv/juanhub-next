@@ -15,7 +15,7 @@ export default function About(){
             <div id="about" className="pb-14 bg-muted/40"></div>
             <section className="desktop:min-h-screen px-4 flex flex-1 flex-col bg-muted/40 p-4 md:gap-8 md:p-10 items-center phone:py-0 phone:mb-10" >
                  <div className="desktop:w-2/3 phone:py-0 phone:mb-0 ">
-                    <h1 className="text-4xl font-bold mb-4 text-left desktop:text-7xl ipad:text-7xl ipadpro:text-5xl desktop:text-center ">Experience seamless high-quality video streaming for all your content needs.</h1>
+                    <h1 className="text-4xl font-bold mb-4 text-left desktop:text-7xl ipad:text-7xl ipadpro:text-5xl ipadpro:text-center desktop:text-center ">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
                     <div className="flex justify-center space-x-4">
                         <Button >Learn More</Button>

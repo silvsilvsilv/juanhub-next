@@ -9,7 +9,7 @@ export default function CTA(){
                 <div className="flex desktop:flex-row phone:flex-col container mx-auto px-4 py-8 ">
 
                     <div>
-                        <h1 className="text-6xl font-bold mb-8 desktop:text-6xl phone:text-4xl">
+                        <h1 className="text-4xl font-bold mb-8 desktop:text-6xl ipad:text-5xl ipadpro:text-6xl">
                             Start Your Creative Journey Today
                         </h1>
 
