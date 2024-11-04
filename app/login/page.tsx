@@ -11,7 +11,7 @@ import { useState } from "react";
 // Importing the background image
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
-export default function Dashboard() {
+export default function Login() {
 
   // State for user credentials
   const [user, setUser] = useState({

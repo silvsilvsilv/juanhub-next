@@ -8,7 +8,7 @@ import utils from '../login/util.module.css'; // reused utility styles
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 import { useState } from "react";
 
-export default function Dashboard(){
+export default function Register(){
 
     const [user, setUser] = useState({
       name: "",
