@@ -67,7 +67,7 @@ export default function Login() {
   }
 
   return (
-    <div className={`${styles['login-container']} ${poppins.className} ${montserrat.className}`}>
+    <div className={`${styles['login-container']} ${poppins.className} `}>
       <div className={styles['limiter']}>
         <div className={styles['container-login100']}>
           <div className={styles['wrap-login100']}>
@@ -112,7 +112,7 @@ export default function Login() {
               {/* Register Link */}
               <div className={`${utils['flex-sb-m']} ${utils['w-full']} ${utils['p-t-3']} ${utils['p-b-32']}`}>
                 <div>
-                  <p className={`${styles['txt1']} ${styles['paragraph']}`}>
+                  <p className={`${styles['txt1']} ${styles['paragraph']} ${montserrat.className}`}>
                     New to Juan Hub? <Link className={styles['txt1']} href="/register"><strong>Register</strong></Link>
                   </p>
                 </div>
@@ -121,7 +121,7 @@ export default function Login() {
               {/* Submit Button */}
               <div className={styles['container-login100-form-btn']}>
                 <button className={styles['login100-form-btn']}>
-                  <Link href="/" className={styles['text-white']}>Login</Link>
+                  <Link href="/" className={`${styles['text-white']} ${montserrat.className}` }>Login</Link>
                 </button>
               </div>
 
