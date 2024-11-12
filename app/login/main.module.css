@@ -425,6 +425,11 @@ iframe {
   transition: all 0.4s;
 }
 
+.label-input100 .error{
+  color: red;
+}
+
+
 .input100 {
   display: block;
   width: 100%;

@@ -130,7 +130,9 @@ function Home() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>Join</DropdownMenuItem>
-              <DropdownMenuItem><Link href="/login">Log In</Link></DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/login">Log In</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

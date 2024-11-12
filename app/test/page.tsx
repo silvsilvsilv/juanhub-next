@@ -1,54 +1,56 @@
-"use client"; // This is a client-side component
+'use client';
+import { useState } from 'react';
+import loginUser from './loginUser';
 
-import { useEffect, useState } from "react";
-import styles from './main.module.css';
+const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-export default function HomePage() {
-  const [isScrolledPast, setIsScrolledPast] = useState(false);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError('');
+    setMessage('');
 
-  useEffect(() => {
-    const section : HTMLElement | null = document.getElementById("my-section");
+    try {
+      const response = await loginUser(email, password);
+      if (response) {
+        setMessage(response.message);
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
+    }
+  };
 
-
-    const handleScroll = () => {
-        const sectionTop = section?.getBoundingClientRect().top;
-        const scrollPosition = window.scrollY;
-
-        // Determine when we are past or before the section
-        if (scrollPosition > (sectionTop || 0)) {
-            setIsScrolledPast(true); // Scrolled past the section
-        } else {
-            setIsScrolledPast(false); // Not scrolled past or scrolled back up
-        }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  
   return (
-    <>
-      <div className={`${isScrolledPast ? styles['default-header'] : styles['scrolled-header']  } sticky top-0 flex`  }>
-        <h1>My Homepage Header</h1>
-      </div>
-
-      <div id="my-section" style={ { height: "100vh", background: "#f0f0f0" } }>
-        <h2>This is the section to watch</h2>
-      </div>
-
-      <div style={{ height: "200vh", background: "#ccc" }}>
-        <h2>Scroll down to test</h2>
-      </div>
-
-      {/* <div className="bg-red-500 ipadpro:bg-green-500 ipad:bg-blue-500 mobile:bg-yellow-500">
-        Responsive element
-      </div> */}
-
-    </>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && <p style={{ color: 'green' }}>{message}</p>}
+    </div>
   );
-}
+};
+
+export default LoginForm;
