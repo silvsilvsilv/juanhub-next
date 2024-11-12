@@ -9,7 +9,7 @@ import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 import { useEffect, useState, useReducer } from "react";
 import React from 'react';
 
-import registerUser from "./registerUser";
+import registerUser from "./registerUser"
 
 
 export default function Register(){
