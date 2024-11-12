@@ -17,6 +17,14 @@ import Homepage from "@/components/Homepage"
 import Footer from "@/components/Footer"
 import { useState, useEffect } from "react";
 
+import { JetBrains_Mono } from "next/font/google";
+
+const jetbrains = JetBrains_Mono({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
+
 function Home() {
 
   interface States{
@@ -74,7 +82,7 @@ function Home() {
             className="flex items-center gap-2 text-lg font-semibold md:text-base phone:text-base"
           >
             <DBIcon/>
-            <span className="font-['JetBrains_Mono']">Juan Hub</span>
+            <span className={`${jetbrains.className}`}>Juan Hub</span>
             <span className="sr-only">Juan Hub</span>
           </Link>
 

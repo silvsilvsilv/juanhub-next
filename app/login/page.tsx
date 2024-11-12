@@ -11,6 +11,8 @@ import { useState } from "react";
 // Importing the background image
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
+import loginUser from "./loginUser";
+
 export default function Login() {
 
   // State for user credentials
@@ -33,12 +35,28 @@ export default function Login() {
     });
   };
 
+  const handleLogin = async (e:React.FormEvent) => {
+    e.preventDefault();
+  
+
+    try {
+      const response = await loginUser(user.email, user.password);
+      if (response) {
+        alert("Login Successful");
+        console.log("Login succesful "+response.message);
+      }
+    } catch (err) {
+      alert("Login Failed");
+      console.error("Login failed " + err);
+    }
+  }
+
   return (
     <div className={styles['login-container']}>
       <div className={styles['limiter']}>
         <div className={styles['container-login100']}>
           <div className={styles['wrap-login100']}>
-            <form className={styles['login100-form']}>
+            <form className={styles['login100-form']} onSubmit={handleLogin}>
 
               {/* Back Link with Arrow */}
               <Link href="/" className={utils['text-black']}>
