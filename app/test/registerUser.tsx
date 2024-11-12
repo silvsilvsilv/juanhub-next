@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 // Define the type for the user registration response (adjust according to your Laravel API response)
 interface RegisterResponse {
@@ -58,12 +58,19 @@ const registerUser = async (
 
     // Return the registered user's data and token
     return response.data;
-  } catch (error) {
-    // Handle the error (failure case)
-    if (axios.isAxiosError(error) && error.response) {
-      console.error('User registration failed:', error.response.data);
+  } catch (error:unknown) {
+    // Cast error as AxiosError to access Axios-specific properties
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError; // Cast error as AxiosError
+      if (axiosError.response) {
+        console.error('User registration failed:', axiosError.response.data);
+      } else {
+        console.error('AxiosError with no response:', axiosError.message);
+      }
+    } else if (error instanceof Error) {
+      console.error('Generic error occurred:', error.message);
     } else {
-      console.error('User registration failed:', error.message);
+      console.error('Unknown error occurred');
     }
   }
 };

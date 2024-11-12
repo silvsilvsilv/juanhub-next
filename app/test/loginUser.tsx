@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 // Define the type for the login response
 interface LoginResponse {
@@ -48,8 +48,18 @@ const loginUser = async (
 
     // Return the user and message
     return response.data;
-  } catch (error) {
-    console.error('Login failed:', error.response?.data || error.message);
+  } catch (error:unknown) {
+    // Check if the error is an Axios error
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      // Access the Axios-specific properties safely
+      console.error('Login failed:', axiosError.response?.data || axiosError.message);
+    } else if (error instanceof Error) {
+      // Handle other types of errors (generic JS errors)
+      console.error('Login failed:', error.message);
+    } else {
+      console.error('Unknown error occurred');
+    }
   }
 };
 
