@@ -13,6 +13,21 @@ import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 
 import loginUser from "./loginUser";
 
+import { Poppins, Montserrat } from "next/font/google";
+
+const poppins = Poppins({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
+
+const montserrat = Montserrat({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
+
+
 export default function Login() {
 
   // State for user credentials
@@ -52,7 +67,7 @@ export default function Login() {
   }
 
   return (
-    <div className={styles['login-container']}>
+    <div className={`${styles['login-container']} ${poppins.className} ${montserrat.className}`}>
       <div className={styles['limiter']}>
         <div className={styles['container-login100']}>
           <div className={styles['wrap-login100']}>
