@@ -11,6 +11,21 @@ import React from 'react';
 
 import registerUser from "./registerUser"
 
+import { Poppins, Montserrat } from "next/font/google";
+
+const poppins = Poppins({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
+
+const montserrat = Montserrat({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
+
+
 
 export default function Register(){
 
@@ -95,7 +110,7 @@ export default function Register(){
     
     return(
         <>  
-          <div className={styles['limiter']}>
+          <div className={`${styles['limiter']} ${poppins.className}`}>
             <div className={styles['container-login100']}>
               <div className={styles['wrap-login100']}>
                 
@@ -167,7 +182,7 @@ export default function Register(){
 
                   <div className={`${utils['flex-sb-m']} ${utils['w-full']} ${utils['p-t-3']} ${utils['p-b-32']}`}>
                     <div>
-                      <p className={`${styles['txt1']} ${styles['paragraph']}`}>
+                      <p className={`${styles['txt1']} ${styles['paragraph']} ${montserrat.className}`}>
                         {`Already have an account? `} 
                         <Link href="/login" className={`${styles["txt1"]}`}>
                           <strong>Log In</strong>
