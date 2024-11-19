@@ -1,56 +1,50 @@
 'use client';
+
+import Link from 'next/link';
+import axios from 'axios';
 import { useState } from 'react';
-import loginUser from './loginUser';
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+const LogoutButton = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError('');
-    setMessage('');
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
 
     try {
-      const response = await loginUser(email, password);
-      if (response) {
-        setMessage(response.message);
-      }
-    } catch (err) {
-      setError('Login failed. Please try again.');
+      await axios.post(
+        'http://localhost:8000/api/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      // Clear authentication state
+      localStorage.removeItem('token');
+    } catch (error) {
+      console.error('Logout failed:', error.response?.data || error.message);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-    </div>
+    <>
+      <h1>PROFILE</h1>
+      
+      <Link href="/">
+        <button
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+        >
+          {isLoggingOut ? 'Logging out...' : 'Logout'}
+        </button>
+      </Link>
+    </>
   );
 };
 
-export default LoginForm;
+export default LogoutButton;

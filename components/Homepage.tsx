@@ -25,7 +25,7 @@ export default function Homepage(){
                         Showcase your moments with ease
                         </h1>
 
-                        <p className="text-xl text-gray-700  mb-8 ">
+                        <p className="text-xl text-gray-700  mb-8 pr-8">
                             Welcome to Juan Hub! Your ultimate platform for hosting videos and photos. Discover how easy it is to share your creativity with the world
                         </p>
                         

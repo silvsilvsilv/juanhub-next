@@ -6,7 +6,7 @@ import styles from '../login/main.module.css'; //  local scoped styles
 import utils from '../login/util.module.css'; // reused utility styles
 
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
-import { useEffect, useState, useReducer } from "react";
+import { useState, useReducer } from "react";
 import React from 'react';
 
 import registerUser from "./registerUser"
@@ -25,8 +25,6 @@ const montserrat = Montserrat({
   display:'swap',
 });
 
-
-
 export default function Register(){
 
     interface User{
@@ -43,7 +41,7 @@ export default function Register(){
       confirmPass: "",
     });
 
-    const [className, setClassName] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(true);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const[ _ ,forceUpdate] = useReducer(x => x + 1, 0);
@@ -63,28 +61,15 @@ export default function Register(){
 
     const handleConfirmPass = () =>{
       if( (user.password == user.confirmPass) && user.password ){
-        // alert("chakto");
-        setClassName(true);
+        setErrorMessage(true);
         forceUpdate();
         return true;
       }
-      alert("Passwords not the same");
+
       forceUpdate();
-      setClassName(false);
+      setErrorMessage(false);
       return false;
     }
-
-    useEffect(() => {
-      // if( (user.password == user.confirmPass) && user.password ){
-      //   setClassName(true);
-      // }
-      // else{
-      //   setClassName(false);
-      // }
-    
-    }, [className, user.confirmPass, user.password])
-    
-
 
     const handleRegister = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -97,7 +82,7 @@ export default function Register(){
         if (result) {
           console.log('User registered:', result.user);
           // You can store the token or navigate to another page, e.g., localStorage.setItem('token', result.token);
-          alert("Successfully Registered!");
+          console.log("Registered");
         }
       }
       else
@@ -152,7 +137,7 @@ export default function Register(){
                     <span className={styles['label-input100']}>Email</span>
                   </div>
                   
-                  <div className={`${styles['wrap-input100']} ${styles['validate-input']}`} data-validate="Password is required">
+                  <div className={`${styles['wrap-input100']}  ${errorMessage? "" : styles['error']}`} data-validate="Password is required">
                     <input 
                       className={`${styles['input100']} ${user.password ? styles["has-val"] : ""}`} 
                       type="password" 
@@ -161,23 +146,23 @@ export default function Register(){
                       value={user.password}
                     />
                     <span className={styles['focus-input100']}></span>
-                    <span className={`${styles['label-input100']}`}>
-                      <span className={`${className? "" : styles['error']}`}>
-                        Password
-                      </span>
+                    <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>
+                      Password
                     </span>
                   </div>
 
-                  <div className={`${styles['wrap-input100']} ${styles['validate-input']}`} data-validate="Password is required">
+                  <div className={`${styles['wrap-input100']} ${errorMessage? "" : styles['error']}`} data-validate="Password is required">
                     <input 
-                      className={`${styles['input100']} ${user.confirmPass ? styles["has-val"] : ""} ${className}`} 
+                      className={`${styles['input100']} ${user.confirmPass ? styles["has-val"] : ""} ${errorMessage}`} 
                       type="password" 
                       name="confirmPass" 
                       onChange={handleUser} 
                       value={user.confirmPass}
                     />
-                    <span className={styles['focus-input100']}></span>
-                    <span className={styles['label-input100']}><span className={`${className? "":styles['error']}`}>Confirm Password</span></span>
+                    <span className={`${styles['focus-input100']} ${errorMessage? "" : styles['error']}`}></span>
+                    <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>
+                      Confirm Password
+                    </span>
                   </div>
 
                   <div className={`${utils['flex-sb-m']} ${utils['w-full']} ${utils['p-t-3']} ${utils['p-b-32']}`}>
@@ -192,11 +177,15 @@ export default function Register(){
                   </div>
 
                   {/* <button onClick={handleConfirmPass}>BBB</button> */}
-
+                  
                   <div className={styles['container-login100-form-btn']}>
-                    <button className={styles['login100-form-btn']}>
-                      <Link href="" className={styles['text-white']} onSubmit={handleRegister}>Register</Link>
-                    </button>
+                    <Link href="/" passHref className={styles['login100-form-btn']} >
+                      <button>
+                        <span className={`${styles['text-white']} ${montserrat.className} ${utils['text-up']}`}>
+                          <strong>Register</strong>
+                        </span>
+                      </button>
+                    </Link>
                   </div>
                   
                 </form>

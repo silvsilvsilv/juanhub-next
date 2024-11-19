@@ -2,11 +2,14 @@
 import Link from "next/link";
 import { ArrowLeft } from 'lucide-react';
 
+import { useToast } from "@/hooks/use-toast"
+
+
 // Importing styles
 import styles from './main.module.css';
 import utils from './util.module.css';
 
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
 // Importing the background image
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
@@ -35,11 +38,19 @@ export default function Login() {
     email: "",
     password: ""
   });
+ 
+  // State for error message handling
+  const [errorMessage, setErrorMessage] = useState(true);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const[ _ ,forceUpdate] = useReducer(x => x + 1, 0);
 
   // Background styling for the login page
   const styling = {
     backgroundImage: `url(${bgPic.src})`,
   };
+
+  const {toast} = useToast();
 
   // Handler for input changes
   const handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,21 +61,50 @@ export default function Login() {
     });
   };
 
+  const handleValidation = () => {
+    if( user.email && user.password ){
+        setErrorMessage(true);
+        forceUpdate();
+      }
+
+      forceUpdate();
+      setErrorMessage(false);
+  };
+
+  //handle Form Submit for Login
   const handleLogin = async (e:React.FormEvent) => {
     e.preventDefault();
-  
 
+    handleValidation();
+    
     try {
       const response = await loginUser(user.email, user.password);
       if (response) {
-        alert("Login Successful");
-        console.log("Login succesful "+response.message);
+        console.log("Login succesful " + response.message);
+        setErrorMessage(true);
+        // Show toast notification
+        toast({
+          title: "Login Successful",
+          description:"You will be redirected soon",
+        });
+        
+        window.location.href = "/test";
+      }
+      else {
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive", // Use a variant for error styling
+        duration:8000,
+      });
+
       }
     } catch (err) {
-      alert("Login Failed");
+      
       console.error("Login failed " + err);
     }
   }
+
 
   return (
     <div className={`${styles['login-container']} ${poppins.className} `}>
@@ -84,29 +124,29 @@ export default function Login() {
               </span>
 
               {/* Email Input */}
-              <div className={styles['wrap-input100']} data-validate="Valid email is required: ex@abc.xyz">
+              <div className={`${styles['wrap-input100']} ${errorMessage? "" : styles['error']}`} data-validate="Valid email is required: ex@abc.xyz">
                 <input
-                  className={`${styles['input100']} ${user.email ? styles['has-val'] : ''}`}
-                  type="text"
+                  className={`${styles['input100']} ${user.email ? styles['has-val'] : ''} ${errorMessage}`}
+                  type="email"
                   name="email"
                   onChange={handleUser}
                   value={user.email}
                 />
-                <span className={styles['focus-input100']}></span>
-                <span className={styles['label-input100']}>Email</span>
+                <span className={`${styles['focus-input100']} ${errorMessage? "" : styles['error']}`}></span>
+                <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>Email</span>
               </div>
 
               {/* Password Input */}
-              <div className={styles['wrap-input100']} data-validate="Password is required">
+              <div className={`${styles['wrap-input100']} ${errorMessage? "" : styles['error']}`} data-validate="Password is required">
                 <input
-                  className={`${styles['input100']} ${user.password ? styles['has-val'] : ''}`}
+                  className={`${styles['input100']} ${user.password ? styles['has-val'] : ''} ${errorMessage}`}
                   type="password"
                   name="password"
                   onChange={handleUser}
                   value={user.password}
                 />
-                <span className={styles['focus-input100']}></span>
-                <span className={styles['label-input100']}>Password</span>
+                <span className={`${styles['focus-input100']} ${errorMessage? "" : styles['error']}`}></span>
+                <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>Password</span>
               </div>
 
               {/* Register Link */}
@@ -121,7 +161,7 @@ export default function Login() {
               {/* Submit Button */}
               <div className={styles['container-login100-form-btn']}>
                 <button className={styles['login100-form-btn']}>
-                  <Link href="/" className={`${styles['text-white']} ${montserrat.className}` }>Login</Link>
+                  <Link href="/" className={`${styles['text-white']} ${montserrat.className} ${utils['text-up']}` }>Login</Link>
                 </button>
               </div>
 
