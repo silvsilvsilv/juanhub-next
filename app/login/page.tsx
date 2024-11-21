@@ -61,21 +61,9 @@ export default function Login() {
     });
   };
 
-  const handleValidation = () => {
-    if( user.email && user.password ){
-        setErrorMessage(true);
-        forceUpdate();
-      }
-
-      forceUpdate();
-      setErrorMessage(false);
-  };
-
   //handle Form Submit for Login
   const handleLogin = async (e:React.FormEvent) => {
     e.preventDefault();
-
-    handleValidation();
     
     try {
       const response = await loginUser(user.email, user.password);
@@ -97,6 +85,8 @@ export default function Login() {
         variant: "destructive", // Use a variant for error styling
         duration:8000,
       });
+
+      setErrorMessage(false);
 
       }
     } catch (err) {
