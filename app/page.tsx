@@ -16,6 +16,7 @@ import { Menu } from 'lucide-react';
 import Homepage from "@/components/Homepage"
 import Footer from "@/components/Footer"
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 
 import { JetBrains_Mono } from "next/font/google";
 
@@ -26,6 +27,16 @@ const jetbrains = JetBrains_Mono({
 });
 
 function Home() {
+
+  //TODO : use cookies instead of this scuffed
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      router.push('/test');
+    }
+  }, [router])
 
   interface States{
     about:boolean,

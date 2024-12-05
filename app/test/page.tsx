@@ -1,50 +1,46 @@
 'use client';
 
-import Link from 'next/link';
-import axios from 'axios';
-import { useState } from 'react';
+// import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const LogoutButton = () => {
+
+const Logout = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleLogout = async () => {
+  //TODO : use cookies instead of this scuffed
+  const router = useRouter();
+    
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+
+    if(!user){
+      router.push('/login');
+    }
+  }, [router])
+
+  const handleLogout = () =>{
+    localStorage.removeItem('user');
+
     setIsLoggingOut(true);
 
-    try {
-      await axios.post(
-        'http://localhost:8000/api/logout',
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-          withCredentials: true,
-        }
-      );
-
-      // Clear authentication state
-      localStorage.removeItem('token');
-    } catch (error) {
-      console.error('Logout failed:', error.response?.data || error.message);
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
-
-  return (
-    <>
-      <h1>PROFILE</h1>
-      
-      <Link href="/">
-        <button
-          onClick={handleLogout}
-          disabled={isLoggingOut}
-        >
-          {isLoggingOut ? 'Logging out...' : 'Logout'}
-        </button>
-      </Link>
-    </>
-  );
+    router.push('/');
+  }
+  
+    return (
+      <>
+        <h1>PROFILE</h1>
+        
+        
+          <button
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? 'Logging out...' : 'Logout'}
+          </button>
+      </>
+    );
 };
 
-export default LogoutButton;
+
+export default Logout;

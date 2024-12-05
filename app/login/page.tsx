@@ -9,7 +9,8 @@ import { useToast } from "@/hooks/use-toast"
 import styles from './main.module.css';
 import utils from './util.module.css';
 
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 
 // Importing the background image
 import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
@@ -33,6 +34,17 @@ const montserrat = Montserrat({
 
 export default function Login() {
 
+  //TODO : use cookies instead of this scuffed method
+  const router = useRouter();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      router.push('/test');
+    }
+  }, [router])
+  
+
   // State for user credentials
   const [user, setUser] = useState({
     email: "",
@@ -50,7 +62,7 @@ export default function Login() {
     backgroundImage: `url(${bgPic.src})`,
   };
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   // Handler for input changes
   const handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,13 +82,16 @@ export default function Login() {
       if (response) {
         console.log("Login succesful " + response.message);
         setErrorMessage(true);
-        // Show toast notification
-        toast({
-          title: "Login Successful",
-          description:"You will be redirected soon",
-        });
         
-        window.location.href = "/test";
+        localStorage.setItem('user', JSON.stringify(response.user.id));
+        // Show toast notification
+        // toast({
+        //   title: "Login Successful",
+        //   description:"You will be redirected soon",
+        //   variant:"default",
+        // });
+        
+        router.push('/test');
       }
       else {
       toast({
