@@ -1,46 +1,38 @@
 'use client';
 
-// import axios from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
+const Dashboard = () => {
+    const [images, setImages] = useState<string[]>([]);
 
-const Logout = () => {
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const { data } = await axios.get('http:///127.0.0.1:8000/api/images', {
+                    headers: { Authorization: `Bearer YOUR_ACCESS_TOKEN` },
+                });
+                setImages(data.map((img: { path: string }) => img.path));
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-  //TODO : use cookies instead of this scuffed
-  const router = useRouter();
-    
-  useEffect(() => {
-    const user = localStorage.getItem('user');
+        fetchImages();
+    }, []);
 
-    if(!user){
-      router.push('/login');
-    }
-  }, [router])
-
-  const handleLogout = () =>{
-    localStorage.removeItem('user');
-
-    setIsLoggingOut(true);
-
-    router.push('/');
-  }
-  
     return (
-      <>
-        <h1>PROFILE</h1>
-        
-        
-          <button
-            onClick={handleLogout}
-            disabled={isLoggingOut}
-          >
-            {isLoggingOut ? 'Logging out...' : 'Logout'}
-          </button>
-      </>
+        <div>
+            {images.map((path, idx) => (
+                <img
+                    key={idx}
+                    src={`http://127.0.01:8000/storage/${path}`}
+                    alt={`User Image ${idx}`}
+                    style={{ width: 200, height: 200 }}
+                />
+            ))}
+        </div>
     );
 };
 
-
-export default Logout;
+export default Dashboard;

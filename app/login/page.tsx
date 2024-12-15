@@ -18,6 +18,7 @@ import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
 import loginUser from "./loginUser";
 
 import { Poppins, Montserrat } from "next/font/google";
+import { stringify } from "querystring";
 
 const poppins = Poppins({
   weight:['400','700'],
@@ -40,7 +41,7 @@ export default function Login() {
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
-      router.push('/test');
+      router.push('/logout');
     }
   }, [router])
   
@@ -80,10 +81,11 @@ export default function Login() {
     try {
       const response = await loginUser(user.email, user.password);
       if (response) {
-        console.log("Login succesful " + response.message);
+        console.log("Login successful " + response.message);
         setErrorMessage(true);
         
         localStorage.setItem('user', JSON.stringify(response.user.id));
+        localStorage.setItem('userId', `${response.user.id}`);
         // Show toast notification
         // toast({
         //   title: "Login Successful",
@@ -91,7 +93,7 @@ export default function Login() {
         //   variant:"default",
         // });
         
-        router.push('/test');
+        router.push('/subscribe');
       }
       else {
       toast({
