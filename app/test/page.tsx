@@ -1,38 +1,51 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-const Dashboard = () => {
-    const [images, setImages] = useState<string[]>([]);
+interface Image {
+  id: number;
+  user_id: number;
+  title: string;
+  url: string;
+}
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const { data } = await axios.get('http:///127.0.0.1:8000/api/images', {
-                    headers: { Authorization: `Bearer YOUR_ACCESS_TOKEN` },
-                });
-                setImages(data.map((img: { path: string }) => img.path));
-            } catch (error) {
-                console.error(error);
-            }
-        };
+const ImageGallery = () => {
+  const [images, setImages] = useState<Image[]>([]);
+  
 
-        fetchImages();
-    }, []);
+  useEffect(() => {
+    const fetchImages = async () => {
+       try {
+            const userId = localStorage.getItem('userId');
+            const response = await axios.get(`http://localhost:8000/api/images`, {
+            params: {
+                user_id: userId,
+            },
+            });
+            setImages(response.data);
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    };
 
-    return (
-        <div>
-            {images.map((path, idx) => (
-                <img
-                    key={idx}
-                    src={`http://127.0.01:8000/storage/${path}`}
-                    alt={`User Image ${idx}`}
-                    style={{ width: 200, height: 200 }}
-                />
-            ))}
+    fetchImages();
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+      {images.map((image) => (
+        <div key={image.id} style={{ textAlign: 'center' }}>
+          <img
+            src={image.url}
+            alt={image.title}
+            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+          />
+          <p>{image.title}</p>
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
-export default Dashboard;
+export default ImageGallery;

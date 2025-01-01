@@ -1,42 +1,26 @@
 'use client';
-import Link from "next/link";
-import { ArrowLeft } from 'lucide-react';
 
-import { useToast } from "@/hooks/use-toast"
+import { LoginForm } from "../../components/login-form"
 
+import img from "../public/reshot-illustration-website-design-ZK3N2W7CDX.png";
+import Image from "next/image";
+import DBIcon from "@/components/ui/dbicon";
 
-// Importing styles
-import styles from './main.module.css';
-import utils from './util.module.css';
+import { JetBrains_Mono } from "next/font/google";
 
-import { useState, useReducer, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-
-// Importing the background image
-import bgPic from '../public/reshot-illustration-website-design-ZK3N2W7CDX.png';
+const jetbrains = JetBrains_Mono({
+  weight:['400','700'],
+  subsets:['latin'],
+  display:'swap',
+});
 
 import loginUser from "./loginUser";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
+import { useToast } from "@/hooks/use-toast"
 
-import { Poppins, Montserrat } from "next/font/google";
-import { stringify } from "querystring";
-
-const poppins = Poppins({
-  weight:['400','700'],
-  subsets:['latin'],
-  display:'swap',
-});
-
-const montserrat = Montserrat({
-  weight:['400','700'],
-  subsets:['latin'],
-  display:'swap',
-});
-
-
-export default function Login() {
-
-  //TODO : use cookies instead of this scuffed method
-  const router = useRouter();
+export default function LoginPage() {
+    const router = useRouter();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -52,17 +36,6 @@ export default function Login() {
     password: ""
   });
  
-  // State for error message handling
-  const [errorMessage, setErrorMessage] = useState(true);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const[ _ ,forceUpdate] = useReducer(x => x + 1, 0);
-
-  // Background styling for the login page
-  const styling = {
-    backgroundImage: `url(${bgPic.src})`,
-  };
-
   const { toast } = useToast();
 
   // Handler for input changes
@@ -82,16 +55,9 @@ export default function Login() {
       const response = await loginUser(user.email, user.password);
       if (response) {
         console.log("Login successful " + response.message);
-        setErrorMessage(true);
-        
+       
         localStorage.setItem('user', JSON.stringify(response.user.id));
         localStorage.setItem('userId', `${response.user.id}`);
-        // Show toast notification
-        // toast({
-        //   title: "Login Successful",
-        //   description:"You will be redirected soon",
-        //   variant:"default",
-        // });
         
         router.push('/subscribe');
       }
@@ -103,8 +69,6 @@ export default function Login() {
         duration:8000,
       });
 
-      setErrorMessage(false);
-
       }
     } catch (err) {
       
@@ -112,73 +76,38 @@ export default function Login() {
     }
   }
 
-
   return (
-    <div className={`${styles['login-container']} ${poppins.className} `}>
-      <div className={styles['limiter']}>
-        <div className={styles['container-login100']}>
-          <div className={styles['wrap-login100']}>
-            <form className={styles['login100-form']} onSubmit={handleLogin}>
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
 
-              {/* Back Link with Arrow */}
-              <Link href="/" className={utils['text-black']}>
-                <ArrowLeft className={utils['m-b-40']} />
-              </Link>
-
-              {/* Login Title */}
-              <span className={`${styles['login100-form-title']} ${utils['p-b-43']}`}>
-                Login to continue
-              </span>
-
-              {/* Email Input */}
-              <div className={`${styles['wrap-input100']} ${errorMessage? "" : styles['error']}`} data-validate="Valid email is required: ex@abc.xyz">
-                <input
-                  className={`${styles['input100']} ${user.email ? styles['has-val'] : ''} ${errorMessage}`}
-                  type="email"
-                  name="email"
-                  onChange={handleUser}
-                  value={user.email}
-                />
-                <span className={`${styles['focus-input100']} ${errorMessage? "" : styles['error']}`}></span>
-                <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>Email</span>
-              </div>
-
-              {/* Password Input */}
-              <div className={`${styles['wrap-input100']} ${errorMessage? "" : styles['error']}`} data-validate="Password is required">
-                <input
-                  className={`${styles['input100']} ${user.password ? styles['has-val'] : ''} ${errorMessage}`}
-                  type="password"
-                  name="password"
-                  onChange={handleUser}
-                  value={user.password}
-                />
-                <span className={`${styles['focus-input100']} ${errorMessage? "" : styles['error']}`}></span>
-                <span className={`${styles['label-input100']} ${errorMessage? "" : styles['error']}`}>Password</span>
-              </div>
-
-              {/* Register Link */}
-              <div className={`${utils['flex-sb-m']} ${utils['w-full']} ${utils['p-t-3']} ${utils['p-b-32']}`}>
-                <div>
-                  <p className={`${styles['txt1']} ${styles['paragraph']} ${montserrat.className}`}>
-                    New to Juan Hub? <Link className={styles['txt1']} href="/register"><strong>Register</strong></Link>
-                  </p>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <div className={styles['container-login100-form-btn']}>
-                <button className={styles['login100-form-btn']}>
-                  <Link href="/" className={`${styles['text-white']} ${montserrat.className} ${utils['text-up']}` }>Login</Link>
-                </button>
-              </div>
-
-            </form>
-
-            {/* Additional Section (Background Image) */}
-            <div className={styles['login100-more']} style={styling}></div>
+        <div className="flex justify-center gap-2 md:justify-start">
+          <a href="/" className="flex items-center gap-2 font-medium">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md ">
+              <DBIcon />
+            </div>
+            <span className={`${jetbrains.className}`}>Juan Hub</span>
+          </a>
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <LoginForm handleLogin={handleLogin} handleUser={handleUser} user={user}/>
           </div>
         </div>
       </div>
+
+      <div className="relative hidden bg-muted lg:block">
+        <Image
+            src={img}
+            alt="Image"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            layout="fill"
+            objectFit="cover"
+            style={ {
+            filter: "brightness(0.8)",
+            } }
+        />
+      </div>
     </div>
-  );
+  )
 }
+

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Input } from '@/components/ui/input';
 
 const UploadImage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -54,12 +55,12 @@ const UploadImage = () => {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} accept="image/*" />
+      <Input type="file" onChange={handleFileChange} accept="image/*" />
       <button onClick={handleUpload} disabled={!selectedFile}>
         Upload Image
       </button>
       <br></br>
-      <input type="text" onChange={handleText} placeholder='Image Title'/>
+      <Input type="text" onChange={handleText} placeholder='Image Title'/>
     </div>
   );
 };
