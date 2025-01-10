@@ -13,7 +13,6 @@ export default function Footer(){
                         <h3 className="text-xl font-bold">Juan Hub</h3>
                         <p className="mt-2">Subscribe to our newsletter for the latest features, updates, and exclusive content.</p>
                         <form className="mt-4">
-                            <input type="email" className="border-2 border-gray-700 rounded-md px-4 py-2" placeholder="Your email here" />
                             <button className="bg-black hover:bg-gray-500 text-white rounded-md px-4 py-2 ml-2 outline outline-1 outline-white">Join</button>
                         </form>
                     </div>
@@ -28,9 +27,9 @@ export default function Footer(){
                     <div className="mb-4 md:mb-0">
                         <h3 className="text-xl font-bold">Connect With Us</h3>
                         <ul className="flex space-x-4">
-                            <li><a href="/" className="hover:text-gray-300" title="Facebook"><FacebookIcon /></a></li>
-                            <li><a href="/" className="hover:text-gray-300" title="Instagram"><InstagramIcon/></a></li>
-                            <li><a href="/" className="hover:text-gray-300" title="LinkedIn"><LinkedinIcon/></a></li>
+                            <li><a href="https://www.facebook.com/" className="hover:text-gray-300" title="Facebook"><FacebookIcon /></a></li>
+                            <li><a href="https://www.instagram.com/" className="hover:text-gray-300" title="Instagram"><InstagramIcon/></a></li>
+                            <li><a href="https://www.linkedin.com/" className="hover:text-gray-300" title="LinkedIn"><LinkedinIcon/></a></li>
                         </ul>
                     </div>
                     <div className="mb-4 md:mb-0">

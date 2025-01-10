@@ -3,12 +3,26 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+interface RegisterFormProps {
+  className:string;
+  handleRegister: (e:React.FormEvent) => void;
+  handleUser: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  user: {
+    name:string;
+    password:string;
+    email:string;
+    confirmPass:string;
+  }
+}
+
 export function RegisterForm({
   className,
-  ...props
-}: React.ComponentPropsWithoutRef<"form">) {
+  handleRegister,
+  handleUser,
+  user
+}: RegisterFormProps) {
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={props.handleRegister}>
+    <form className={cn("flex flex-col gap-6", className)} onSubmit={handleRegister}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create an account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -24,8 +38,8 @@ export function RegisterForm({
             type="text" 
             placeholder="John Doe" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.name} 
+            onChange={handleUser} 
+            value={user.name} 
             name="name" 
           />
         </div>
@@ -37,8 +51,8 @@ export function RegisterForm({
             type="email" 
             placeholder="example@email.com" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.email} 
+            onChange={handleUser} 
+            value={user.email} 
             name="email" 
           />
         </div>
@@ -52,8 +66,8 @@ export function RegisterForm({
             type="password"
             placeholder="Minimum of 8 characters" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.password} 
+            onChange={handleUser} 
+            value={user.password} 
             name="password" 
           />
         </div>
@@ -66,8 +80,8 @@ export function RegisterForm({
             id="password" 
             type="password" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.confirmPass} 
+            onChange={handleUser} 
+            value={user.confirmPass} 
             name="confirmPass" 
           />
         </div>

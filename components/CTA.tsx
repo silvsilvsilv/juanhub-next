@@ -1,5 +1,6 @@
 import React from "react";
 import {Button} from './ui/button';
+import Link from "next/link";
 
 export default function CTA(){
     return(
@@ -20,10 +21,14 @@ export default function CTA(){
                         
                         <div className="space-x-4">
                             <Button className="inline-flex max-w-fit">
-                                Sign Up
+                                <Link href="/register">
+                                    Sign Up
+                                </Link>
                             </Button>
                             <Button variant="link" className="inline-flex max-w-fit outline outline-1 outline-color">
-                                Learn More
+                                <Link href="/register">
+                                    Learn More
+                                </Link>
                             </Button>
                         </div>
                         

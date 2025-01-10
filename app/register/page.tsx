@@ -14,7 +14,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 import registerUser from "./registerUser";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast"
 import { RegisterForm } from "@/components/register-form";
@@ -65,7 +65,7 @@ export default function RegisterPage() {
 
         if (result) {
           toast({
-            title: "Succesfully Registered!",
+            title: "Successfully Registered!",
             description: "You will be redirected soon.",
             variant:"default",
             duration:5000,
@@ -115,7 +115,7 @@ export default function RegisterPage() {
 
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-xs">
-                    <RegisterForm handleRegister={handleRegister} handleUser={handleUser} user={user}/>
+                    <RegisterForm handleRegister={handleRegister} handleUser={handleUser} user={user} className=""/>
                 </div>
             </div>
       </div>

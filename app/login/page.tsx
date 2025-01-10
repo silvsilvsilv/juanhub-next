@@ -20,7 +20,9 @@ import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast"
 
 export default function LoginPage() {
-    const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -53,13 +55,18 @@ export default function LoginPage() {
     
     try {
       const response = await loginUser(user.email, user.password);
+      setTimeout(()=> {console.log("Logging in")}, 10);
+
       if (response) {
         console.log("Login successful " + response.message);
        
         localStorage.setItem('user', JSON.stringify(response.user.id));
         localStorage.setItem('userId', `${response.user.id}`);
+        localStorage.setItem('name', `${response.user.name}`);
+        localStorage.setItem('email', `${response.user.email}`);
+        localStorage.setItem('profile',`${response.user.profile_image}` )
         
-        router.push('/subscribe');
+        router.push('/dashboard');
       }
       else {
       toast({
@@ -69,6 +76,7 @@ export default function LoginPage() {
         duration:8000,
       });
 
+      setIsLoading(false);
       }
     } catch (err) {
       
@@ -90,7 +98,7 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm handleLogin={handleLogin} handleUser={handleUser} user={user}/>
+            <LoginForm handleLogin={handleLogin} handleUser={handleUser} user={user} className="" isLoading={isLoading} setIsLoading={setIsLoading}/>
           </div>
         </div>
       </div>
@@ -105,6 +113,8 @@ export default function LoginPage() {
             style={ {
             filter: "brightness(0.8)",
             } }
+            sizes="50vw"
+            priority
         />
       </div>
     </div>

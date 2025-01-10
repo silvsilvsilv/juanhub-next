@@ -34,7 +34,7 @@ function Home() {
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
-      router.push('/test');
+      router.push('/dashboard');
     }
   }, [router])
 
@@ -148,7 +148,11 @@ function Home() {
               <Menu className="ml-auto"/>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Join</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/register">
+                  Join
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="/login">Log In</Link>
               </DropdownMenuItem>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
-import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -13,9 +12,6 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
-
-
 
 export const metadata: Metadata = {
   title: "Juan Hub",
@@ -31,10 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${geistMono.variable} ${geistSans.variable} antialiased`}
+        className={` ${geistSans.variable} ${geistMono.variable}antialiased`}
       >
-        <main>{children}</main>
-       <Toaster/>
+        {children}
+       
       </body>
     </html>
   );

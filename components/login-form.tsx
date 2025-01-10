@@ -1,14 +1,30 @@
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { LoadingButton } from "./ui/loading-button"
+
+interface LoginFormProps {
+  className:string;
+  handleLogin: (e:React.FormEvent) => void;
+  handleUser: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  user: {
+    password:string;
+    email:string;
+  }
+  isLoading:boolean
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean> >
+}
 
 export function LoginForm({
   className,
-  ...props
-}: React.ComponentPropsWithoutRef<"form">) {
+  handleLogin,
+  handleUser,
+  user,
+  isLoading,
+  setIsLoading
+}: LoginFormProps) {
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={props.handleLogin}>
+    <form className={cn("flex flex-col gap-6", className)} >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -23,8 +39,8 @@ export function LoginForm({
             type="email" 
             placeholder="example@email.com" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.email} 
+            onChange={handleUser} 
+            value={user.email} 
             name="email" 
           />
         </div>
@@ -36,14 +52,12 @@ export function LoginForm({
             id="password" 
             type="password" 
             required 
-            onChange={props.handleUser} 
-            value={props.user.password} 
+            onChange={handleUser} 
+            value={user.password} 
             name="password" 
           />
         </div>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
+        <LoadingButton className="w-full" onClick={handleLogin} isLoading={isLoading} setIsLoading={setIsLoading}/>
         
       </div>
       <div className="text-center text-sm">

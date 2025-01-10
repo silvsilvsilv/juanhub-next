@@ -3,6 +3,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 // Define the type for the login response
 interface LoginResponse {
   user: {
+    profile_image: string;
     id: number;
     name: string;
     email: string;

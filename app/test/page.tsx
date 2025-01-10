@@ -1,51 +1,75 @@
-'use client';
+// 'use client'
 
-import React, { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// const AlbumsList = ({ onSelectAlbum }) => {
+//   const [albums, setAlbums] = useState([]);
+
+//   const fetchAlbums = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:8000/api/albums');
+//       setAlbums(response.data.albums);
+//     } catch (error) {
+//       console.error('Error fetching albums:', error);
+//       alert('Failed to fetch albums');
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchAlbums();
+//   }, []);
+
+//   return (
+//     <div>
+//       <h2>Albums</h2>
+//       <ul>
+//         {albums.map((album) => (
+//           <li key={album.id}>
+//             <h3>{album.title}</h3>
+//             <p>{album.description}</p>
+//             <button onClick={() => onSelectAlbum(album.id)}>View Album</button>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default AlbumsList;
+'use client'
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-interface Image {
-  id: number;
-  user_id: number;
-  title: string;
-  url: string;
-}
+const AlbumImages = () => {
+    const [images, setImages] = useState([]);
 
-const ImageGallery = () => {
-  const [images, setImages] = useState<Image[]>([]);
-  
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/api/albums/1/images`);
+                setImages(response.data);
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        };
 
-  useEffect(() => {
-    const fetchImages = async () => {
-       try {
-            const userId = localStorage.getItem('userId');
-            const response = await axios.get(`http://localhost:8000/api/images`, {
-            params: {
-                user_id: userId,
-            },
-            });
-            setImages(response.data);
-        } catch (error) {
-            console.error('Error fetching images:', error);
-        }
-    };
+        fetchImages();
+    }, []);
 
-    fetchImages();
-  }, []);
-
-  return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-      {images.map((image) => (
-        <div key={image.id} style={{ textAlign: 'center' }}>
-          <img
-            src={image.url}
-            alt={image.title}
-            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-          />
-          <p>{image.title}</p>
+    return (
+        <div>
+            <h1>Album Images</h1>
+            <div className="image-grid">
+                {images.map((image) => (
+                    <div key={image.id} className="image-item">
+                        <img src={`http://localhost:8000/storage/${image.path}`} alt={image.title} />
+                        <p>{image.title}</p>
+                    </div>
+                ))}
+            </div>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
-export default ImageGallery;
+export default AlbumImages;

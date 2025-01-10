@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 
 import pic1 from '../app/public/1.png';
 import pic2 from '../app/public/2.png';
+import Link from "next/link";
 
 
 export default function Homepage(){
@@ -31,10 +32,14 @@ export default function Homepage(){
                         
                         <div className="flex justify-left space-x-4">
                             <Button className="inline-flex max-w-fit">
-                            Explore
+                                <Link href="/dashboard">
+                                    Explore
+                                </Link>
                             </Button>
                             <Button variant={"secondary"} className="inline-flex max-w-fit bg-white outline outline-1 outline-black">
-                            Get started
+                                <Link href="/register">
+                                    Get started
+                                </Link>
                             </Button>
                         </div>
 

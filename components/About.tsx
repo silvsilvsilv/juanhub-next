@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 
 import { ChevronRight, CirclePlus,ArrowUpToLineIcon,NotebookTabs } from "lucide-react";
 import CTA from "./CTA";
+import Link from "next/link";
 
 
 export default function About(){
@@ -18,7 +19,11 @@ export default function About(){
                     <h1 className="text-4xl font-bold mb-4 text-left desktop:text-7xl ipad:text-7xl ipadpro:text-5xl ipadpro:text-center desktop:text-center ">Experience seamless high-quality video streaming for all your content needs.</h1>
                     <p className="text-lg mb-8 text-center">Enjoy secure storage solutions that keep your media safe and accessible. Manage your content effortlessly with our intuitive platform designed for everyone.</p>
                     <div className="flex justify-center space-x-4">
-                        <Button >Learn More</Button>
+                        <Button>
+                            <Link href={"/register"}>
+                                Learn More
+                            </Link>
+                        </Button>
                     </div>
                     
                 </div>
@@ -38,16 +43,6 @@ export default function About(){
                         <p className="text-xl text-gray-700  mb-8 ">
                             Our content management system simplifies the way you host and share your videos and images. Experience seamless organization and enhanced visibility for your work
                         </p>
-                        
-                        {/* <div className="flex justify-left space-x-4">
-                            <Button className="inline-flex max-w-fit">
-                            Explore
-                            </Button>
-                            <Button variant={"secondary"} className="inline-flex max-w-fit bg-white outline outline-1 outline-black">
-                            Get started
-                            </Button>
-                        </div> */}
-
                     </div>
 
                     <Image src={pic4} width={500} height={400} alt="Image number 4" className="mt-10 w-auto h-auto " priority={true}></Image>
@@ -88,11 +83,15 @@ export default function About(){
 
                         <div className="flex justify-left space-x-4 py-12">
                             <Button className="inline-flex max-w-fit">
-                            Upload
+                                <Link href="/dashboard">
+                                    Upload
+                                </Link>
                             </Button>
                             <Button variant="link" className="inline-flex max-w-fit">
-                            Learn More
-                            <ChevronRight></ChevronRight>
+                                <Link href={"/register"}>
+                                    Learn More
+                                </Link>
+                                <ChevronRight></ChevronRight>
                             </Button>
                         </div>
                     </div>
