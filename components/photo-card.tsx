@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, Trash2, Pencil, FolderPlus } from 'lucide-react'
+import { MoreHorizontal, Trash2, Pencil } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,6 @@ import {
 import { FullSizePhotoDialog } from "./full-size-photo-dialog"
 import { EditPhotoModal } from "./edit-photo-modal"
 import { ConfirmationModal } from "./confirmation-modal"
-import { AddToAlbumModal } from "./add-to-album-modal"
 
 import { useState } from "react"
 import axios from "axios"
@@ -33,7 +32,6 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
   const [isFullSizeDialogOpen, setIsFullSizeDialogOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const [addToAlbumModal, setAddToAlbumModal] = useState(false)
 
   const newDate = new Date(date);
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -79,10 +77,6 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
                       <Pencil className="mr-2 h-4 w-4" />
                       <span>Edit</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => setAddToAlbumModal(true)}>
-                      <FolderPlus className="mr-2 h-4 w-4" />
-                      <span>Add to Album</span>
-                    </DropdownMenuItem>
                     <DropdownMenuItem onSelect={() => setIsDeleteModalOpen(true)} className="text-red-600">
                       <Trash2 className="mr-2 h-4 w-4" />
                       <span>Delete</span>
@@ -123,12 +117,6 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
         onConfirm={()=>onDelete(id)}
         />
 
-        <AddToAlbumModal
-          isOpen={addToAlbumModal}
-          onClose={() => setAddToAlbumModal(false)} 
-          onAddToAlbum={() => {console.log("miaw")} }
-          albums={[]}
-        />
     </>
   )
 }

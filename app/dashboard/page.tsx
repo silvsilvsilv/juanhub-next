@@ -50,7 +50,7 @@ export default function Page() {
         <Navigation />
         <main className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <PhotoStats totalPhotos={images.length} totalAlbums={1000} />
+            <PhotoStats totalPhotos={images.length}/>
           </div>
           <div className="mb-6 flex justify-between items-center">
             <h2 className="text-2xl font-bold text-zinc-900">Recent Photos</h2>

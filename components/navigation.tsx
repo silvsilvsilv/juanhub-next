@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { PlusCircle, Grid, FolderOpen } from 'lucide-react'
+import { PlusCircle, Grid } from 'lucide-react'
 import { ProfileDropdown } from "@/components/profile-dropdown"
 import { UploadModal } from "@/components/upload-modal"
 import { useState } from "react"
@@ -34,14 +34,6 @@ export function Navigation() {
               All Photos
             </Button>
           </Link>
-          
-          <Link href="/albums">
-            <Button variant="ghost" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100">
-              <FolderOpen className="mr-2 h-4 w-4" />
-              Albums
-            </Button>
-          </Link>
-          
         </nav>
       </div>
       <div className="flex items-center space-x-4">
