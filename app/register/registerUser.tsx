@@ -15,7 +15,7 @@ interface RegisterResponse {
 const getCsrfToken = async (): Promise<void> => {
   try {
     // Fetch the CSRF token and set it in cookies
-    await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
+    await axios.get('https://ivory-llama-451678.hostingersite.com/sanctum/csrf-cookie', {
       withCredentials: true, // Important: Include credentials (cookies)
     });
     console.log('CSRF token fetched and set in cookies');
@@ -41,7 +41,7 @@ const registerUser = async (
 
     // Make the POST request to register the user
     const response: AxiosResponse<RegisterResponse> = await axios.post(
-      'http://localhost:8000/api/register',
+      'https://ivory-llama-451678.hostingersite.com/api/register',
       {
         name,
         email,

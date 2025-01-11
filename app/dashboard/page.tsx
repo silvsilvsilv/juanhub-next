@@ -25,7 +25,7 @@ export default function Page() {
     const fetchImages = async () => {
        try {
             const userId = localStorage.getItem('userId');
-            const response = await axios.get(`http://localhost:8000/api/images`, {
+            const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/images`, {
             params: {
                 user_id: userId,
             },

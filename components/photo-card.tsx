@@ -39,7 +39,7 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
   
   const onDelete = async (id: number) => {
       try {
-        await axios.delete(`http://localhost:8000/api/images/${id}`);
+        await axios.delete(`https://ivory-llama-451678.hostingersite.com/api/images/${id}`);
         window.location.reload()
       } catch (error) {
         console.error('Error deleting image:', error);

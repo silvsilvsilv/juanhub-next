@@ -75,7 +75,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
 
   const onDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/${id}`);
+      await axios.delete(`https://ivory-llama-451678.hostingersite.com/api/users/${id}`);
       window.location.reload()
     } catch (error) {
       console.error('Error deleting image:', error);
@@ -125,7 +125,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
 
       const userId = localStorage.getItem('userId');
       const response = await axios.post(
-        `http://localhost:8000/api/users/${userId}/update-profile`,
+        `https://ivory-llama-451678.hostingersite.com/api/users/${userId}/update-profile`,
         formData,
         {
           headers: {
@@ -171,7 +171,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
           <div className="grid gap-4 py-4">
             <div className="flex items-center space-x-4">
               <Avatar className="w-16 h-16">
-                <AvatarImage src={`${user.profile_image? `http://localhost:8000/storage/${user.profile_image}`: previewUrl}`} />
+                <AvatarImage src={`${user.profile_image? `https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`: previewUrl}`} />
                 <AvatarFallback>{userInitial}</AvatarFallback>
               </Avatar>
               <Input

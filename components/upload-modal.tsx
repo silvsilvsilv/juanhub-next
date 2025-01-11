@@ -62,7 +62,7 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
       formData.append('title', title);
 
       try {
-        const response = await axios.post('http://localhost:8000/api/images', formData, {
+        const response = await axios.post('https://ivory-llama-451678.hostingersite.com/api/images', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
 

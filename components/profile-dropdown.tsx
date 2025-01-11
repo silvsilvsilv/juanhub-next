@@ -71,7 +71,7 @@ export function ProfileDropdown() {
   const updateUserInfo = async () =>{
     try {
       const userId = localStorage.getItem('userId');
-      const response = await axios.get(`http://localhost:8000/api/users/${userId}`)
+      const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/users/${userId}`)
 
       localStorage.setItem('email',`${response.data.email}`)
       localStorage.setItem('name',`${response.data.name}`)
@@ -90,7 +90,7 @@ export function ProfileDropdown() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={`http://localhost:8000/storage/${user.profile_image}`} alt="@username" />
+              <AvatarImage src={`https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`} alt="@username" />
               <AvatarFallback>{userInitial}</AvatarFallback>
             </Avatar>
           </Button>

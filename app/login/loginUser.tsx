@@ -14,7 +14,7 @@ interface LoginResponse {
 // Function to fetch CSRF token from Laravel
 const getCsrfToken = async (): Promise<void> => {
   try {
-    await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
+    await axios.get('https://ivory-llama-451678.hostingersite.com/sanctum/csrf-cookie', {
       withCredentials: true,
     });
     console.log('CSRF token fetched and set in cookies');
@@ -35,7 +35,7 @@ const loginUser = async (
 
     // Send the login request
     const response: AxiosResponse<LoginResponse> = await axios.post(
-      'http://localhost:8000/api/login',
+      'https://ivory-llama-451678.hostingersite.com/api/login',
       {
         email,
         password,

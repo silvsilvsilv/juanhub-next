@@ -26,7 +26,7 @@ export function EditPhotoModal({ id, isOpen, onClose, currentTitle }: EditPhotoM
 
   const handleUpdateTitle = async (id:number) => {
     try {
-        await axios.put(`http://localhost:8000/api/images/${id}`, { title: title });
+        await axios.put(`https://ivory-llama-451678.hostingersite.com/api/images/${id}`, { title: title });
         window.location.reload();
     } catch (error) {
       console.error('Error updating title:', error);
