@@ -27,7 +27,7 @@ export default function LoginPage() {
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
-      router.push('/logout');
+      router.push('/dashboard');
     }
   }, [router])
   

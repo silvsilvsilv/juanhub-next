@@ -45,7 +45,7 @@ export default function Test() {
                 ))}
 
       <Image
-        src={`https://ivory-llama-451678.hostingersite.com/storage/images/T2ZN1RLxDjAJ5CNO5VY5Q95DDk64LQX9ktW0jMhJ.jpg`} 
+        src={`images/T2ZN1RLxDjAJ5CNO5VY5Q95DDk64LQX9ktW0jMhJ.jpg`} 
         alt={""}      
       >
 
