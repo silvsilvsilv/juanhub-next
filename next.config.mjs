@@ -2,6 +2,13 @@
 const nextConfig = { 
     images: {
     domains: ['localhost'], 
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ivory-llama-451678.hostingersite.com',
+        pathname: '/storage/images/**',
+      }
+    ]
   },
 };
 

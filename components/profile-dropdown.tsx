@@ -90,7 +90,7 @@ export function ProfileDropdown() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={`https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`} alt="@username" />
+              <AvatarImage src={`https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`} alt={`${user.name}`} />
               <AvatarFallback>{userInitial}</AvatarFallback>
             </Avatar>
           </Button>
