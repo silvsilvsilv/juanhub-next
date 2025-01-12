@@ -2,6 +2,7 @@
 
 import { PhotoCard } from "@/components/photo-card";
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react"
 
 interface Image {
@@ -42,6 +43,13 @@ export default function Test() {
       {images.map((photo, index) => (
                   <PhotoCard key={index} {...photo} />
                 ))}
+
+      <Image
+        src={`https://ivory-llama-451678.hostingersite.com/storage/images/T2ZN1RLxDjAJ5CNO5VY5Q95DDk64LQX9ktW0jMhJ.jpg`} 
+        alt={""}      
+      >
+
+      </Image>
     </>
     
   );
