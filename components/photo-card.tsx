@@ -53,7 +53,7 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
         <CardContent className="p-0">
           <div className="relative">
             <Image
-              src={url}
+              src={'https://ivory-llama-451678.hostingersite.com/storage/images/T2ZN1RLxDjAJ5CNO5VY5Q95DDk64LQX9ktW0jMhJ.jpg'}
               alt={title}
               width={300}
               height={300}
