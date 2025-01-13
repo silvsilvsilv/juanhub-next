@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Button } from "./ui/button";
 
 interface RegisterFormProps {
   className:string;
@@ -13,16 +13,23 @@ interface RegisterFormProps {
     email:string;
     confirmPass:string;
   }
+  isEmpty:{
+    name:boolean;
+    email:boolean;
+    password:boolean;
+    confirmPass:boolean;
+  }
 }
 
 export function RegisterForm({
   className,
   handleRegister,
   handleUser,
-  user
+  user,
+  isEmpty
 }: RegisterFormProps) {
   return (
-    <form className={cn("flex flex-col gap-6", className)} onSubmit={handleRegister}>
+    <form className={cn("flex flex-col gap-6", className)}  onSubmit={handleRegister}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create an account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -41,7 +48,9 @@ export function RegisterForm({
             onChange={handleUser} 
             value={user.name} 
             name="name" 
+            className={`${isEmpty.name ?'border-red-500':''}`}
           />
+          <Label className={`${isEmpty.name ?'text-red-500':'hidden'}`}>Name cannot be empty</Label>
         </div>
 
         <div className="grid gap-2">
@@ -54,7 +63,9 @@ export function RegisterForm({
             onChange={handleUser} 
             value={user.email} 
             name="email" 
+            className={`${isEmpty.email ?'border-red-500':''}`}
           />
+          <Label className={`${isEmpty.email ?'text-red-500':'hidden'}`}>Email cannot be empty</Label>
         </div>
 
         <div className="grid gap-2">
@@ -69,7 +80,9 @@ export function RegisterForm({
             onChange={handleUser} 
             value={user.password} 
             name="password" 
+            className={`${isEmpty.password ?'border-red-500':''}`}
           />
+          <Label className={`${isEmpty.password ?'text-red-500':'hidden'}`}>Password cannot be empty</Label>
         </div>
 
         <div className="grid gap-2">
@@ -77,18 +90,20 @@ export function RegisterForm({
             <Label htmlFor="password">Confirm Password</Label>
           </div>
           <Input 
-            id="password" 
+            id="confirmPass" 
             type="password" 
             required 
             onChange={handleUser} 
             value={user.confirmPass} 
             name="confirmPass" 
+            className={`${isEmpty.confirmPass ?'border-red-500':''}`}
           />
         </div>
 
         <Button type="submit" className="w-full">
           Register
         </Button>
+        {/* <LoadingButton className="w-full" onClick={handleRegister} isLoading={isLoading} setIsLoading={setIsLoading} text={"Register"}/> */}
         
       </div>
       <div className="text-center text-sm">

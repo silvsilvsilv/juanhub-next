@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast"
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter();
 
@@ -37,6 +36,11 @@ export default function LoginPage() {
     email: "",
     password: ""
   });
+
+  const [isError, setIsError] = useState({
+    email:false,
+    password:false,
+  })
  
   const { toast } = useToast();
 
@@ -69,15 +73,14 @@ export default function LoginPage() {
         router.push('/dashboard');
       }
       else {
-      toast({
-        title: "Login Failed",
-        description: "Invalid email or password. Please try again.",
-        variant: "destructive", // Use a variant for error styling
-        duration:8000,
-      });
-
-      setIsLoading(false);
-      }
+        toast({
+          title: "Login Failed",
+          description: "Invalid email or password. Please try again.",
+          variant: "destructive", // Use a variant for error styling
+          duration:8000,
+        });
+        setIsError({email:true,password:true});
+      } 
     } catch (err) {
       
       console.error("Login failed " + err);
@@ -98,7 +101,7 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm handleLogin={handleLogin} handleUser={handleUser} user={user} className="" isLoading={isLoading} setIsLoading={setIsLoading}/>
+            <LoginForm handleLogin={handleLogin} handleUser={handleUser} user={user} className="" isError={isError}/>
           </div>
         </div>
       </div>

@@ -15,11 +15,19 @@ const jetbrains = JetBrains_Mono({
 
 import registerUser from "./registerUser";
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast"
 import { RegisterForm } from "@/components/register-form";
+import { SuccessfulSignupModal } from "@/components/successful-signup-modal";
 
 export default function RegisterPage() {
+  const[isOpen, setIsOpen] = useState(false);
+
+  const [isEmpty, setIsEmpty] = useState({
+    name:false,
+    email:false,
+    password:false,
+    confirmPass:false
+  })
     interface User{
       name:string,
       password:string,
@@ -40,51 +48,67 @@ export default function RegisterPage() {
           ...user,
           [name]: value,
         });
+
+        handleEmptyInputField(name,value);
     };
 
-    const router = useRouter();
     const { toast } = useToast();
-
-    const handleConfirmPass = () =>{
-      if( (user.password == user.confirmPass) && user.password ){
-        
-
-        return true;
-      }
-
-      return false;
+ 
+    const handleEmptyInputField = (name:string,value:string) => {
+      setIsEmpty({
+        ...isEmpty,
+        [name]: (value ? false:true),
+      })
     }
 
     const handleRegister = async (e: React.FormEvent) => {
-      e.preventDefault();
+      e.preventDefault(); 
 
-      handleConfirmPass();
-
-      if(handleConfirmPass()){
-        const result = await registerUser(user.name, user.email, user.password);
-
-        if (result) {
+      if(user.password != user.confirmPass){
           toast({
-            title: "Successfully Registered!",
-            description: "You will be redirected soon.",
-            variant:"default",
+            title:"Verify Password",
+            description:"Please make sure your passwords match.",
+            variant:"destructive",
+            duration:5000
+          })
+
+          return;
+      } else if(user.password.length < 8){
+         toast({
+            title:"An error has occurred",
+            description:"Passwords must be at least 8 characters.",
+            variant:"destructive",
+            duration:5000
+          })
+
+          return;
+      }
+        
+      if((user.password == user.confirmPass) && (user.password != "")){
+        
+        const result = await registerUser(user.name, user.email, user.password);
+        if (result) {
+          setIsOpen(true);
+          // toast({
+          //   title: "Successfully Registered!",
+          //   description: "Congratulations, your account has been successfully created.",
+          //   variant:"default",
+          //   duration:5000,
+          // });
+          
+          if(!isOpen){
+            return;
+          } 
+        }
+        else{
+          toast({
+            title:"Email already taken",
+            description:"This email is already taken please use another one.",
+            variant:"destructive",
             duration:5000,
           });
-          
-          router.push("/");
-        }
+        }  
       }
-      else
-      {
-        toast({
-            title: "Registration Failed",
-            description: "Invalid password. Please try again.",
-            variant: "destructive", // Use a variant for error styling
-            duration:8000,
-        });
-        
-      }
-
     };
 
   return (
@@ -115,9 +139,13 @@ export default function RegisterPage() {
 
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-xs">
-                    <RegisterForm handleRegister={handleRegister} handleUser={handleUser} user={user} className=""/>
+                    <RegisterForm handleRegister={handleRegister} handleUser={handleUser} user={user} className="" isEmpty={isEmpty}/>
                 </div>
             </div>
+            <SuccessfulSignupModal
+              isOpen={isOpen}
+              onClose={()=>setIsOpen(false)}
+            />
       </div>
     </div>
   )

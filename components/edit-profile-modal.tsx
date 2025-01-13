@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 
 interface User {
   email:string
@@ -104,6 +105,8 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
 
   const passwordsMatch = password && password.password !== password.confirmPass
 
+  const { toast } = useToast();
+
   const handleUpdate = async (e:  React.FormEvent) => {
     e.preventDefault();
 
@@ -124,6 +127,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
       }
 
       const userId = localStorage.getItem('userId');
+      
       const response = await axios.post(
         `https://ivory-llama-451678.hostingersite.com/api/users/${userId}/update-profile`,
         formData,
@@ -133,12 +137,19 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
           },
         }
       );
-      alert("Profile updated successfully!");
+
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive", // Use a variant for error styling
+        duration:8000,
+      });
+
       setPreviewUrl("");
       console.log(response.data); 
     } catch (error) {
       console.error('Error updating user details:', error);
-      alert('Failed to update user details');
+      
     }
 
     console.log("Profile updated")

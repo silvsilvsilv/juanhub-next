@@ -21,6 +21,8 @@ interface Image {
 export default function Page() {
   const [images, setImages] = useState<Image[]>([]);
   
+  const name = localStorage.getItem('name')
+
   useEffect(() => {
     const fetchImages = async () => {
        try {
@@ -49,6 +51,11 @@ export default function Page() {
     <div className="min-h-screen bg-zinc-50">
         <Navigation />
         <main className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+             <h1 className="text-5xl font-bold text-zinc-900">
+              Welcome {name}!
+            </h1>
+          </div>
           <div className="mb-8">
             <PhotoStats totalPhotos={images.length}/>
           </div>
