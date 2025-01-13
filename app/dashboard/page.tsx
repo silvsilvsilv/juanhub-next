@@ -20,9 +20,8 @@ interface Image {
 
 export default function Page() {
   const [images, setImages] = useState<Image[]>([]);
+  const [username, setUsername] = useState<string>("");
   
-  const name = localStorage.getItem('name')
-
   useEffect(() => {
     const fetchImages = async () => {
        try {
@@ -47,13 +46,19 @@ export default function Page() {
 
   const recentPhotos = sortedImages.slice(0,4);
 
+  useEffect(() => {
+    const name = localStorage.getItem('name');
+    setUsername(name||"");
+  }, [])
+  
+
   return (
     <div className="min-h-screen bg-zinc-50">
         <Navigation />
         <main className="container mx-auto px-4 py-8">
           <div className="mb-8">
              <h1 className="text-5xl font-bold text-zinc-900">
-              Welcome {name}!
+              Welcome {username}!
             </h1>
           </div>
           <div className="mb-8">
