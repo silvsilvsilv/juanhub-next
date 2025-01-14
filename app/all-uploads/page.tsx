@@ -77,7 +77,7 @@ export default function AllUploadsPage() {
         <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <h1 className="text-3xl font-bold text-zinc-900 mb-6">All Uploads</h1>
             <div className="mb-6 flex justify-between items-center">
-                <div className="flex w-full max-w-sm items-center space-x-2">
+                <div className="flex w-full max-w-sm items-center space-x-2 mr-2">
                 <Input
                     type="text"
                     placeholder="Search photos or authors"
@@ -91,7 +91,7 @@ export default function AllUploadsPage() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">
-                        <ArrowUpDown className=" h-4 w-4" />
+                        <ArrowUpDown className="mh-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
