@@ -127,7 +127,7 @@ function Home() {
         <div className="w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 phone:hidden desktop:flex ipadpro:flex ipad:flex">
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative space-x-4">
-              <Link href="/register">
+              <Link href="/all-uploads">
                 <Button variant="secondary" className="bg-white outline outline-1 outline-black">
                   Join
                 </Button>
