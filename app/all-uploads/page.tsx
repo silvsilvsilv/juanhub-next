@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowUpDown, Search } from 'lucide-react'
 import axios from "axios"
-import { PhotoCard } from "@/components/photo-card"
+import { PhotoCard } from "@/components/read-only-photo-card"
 import { Navigation } from "@/components/navigation-no-login"
 import {
   DropdownMenu,
