@@ -129,7 +129,7 @@ function Home() {
             <div className="relative space-x-4">
               <Link href="/all-uploads">
                 <Button variant="secondary" className="bg-white outline outline-1 outline-black">
-                  Join
+                  Shared Images
                 </Button>
               </Link>
 
@@ -150,7 +150,7 @@ function Home() {
             <DropdownMenuContent>
               <DropdownMenuItem>
                 <Link href="/all-uploads">
-                  Join
+                  Shared Images
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
