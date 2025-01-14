@@ -41,7 +41,7 @@ export default function Test() {
   return(
     <>
       {images.map((photo, index) => (
-                  <PhotoCard key={index} {...photo} />
+                  // <PhotoCard key={index} {...photo} />
                 ))}
 
       <Image
