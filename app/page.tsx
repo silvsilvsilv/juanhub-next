@@ -149,7 +149,7 @@ function Home() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>
-                <Link href="/register">
+                <Link href="/all-uploads">
                   Join
                 </Link>
               </DropdownMenuItem>
