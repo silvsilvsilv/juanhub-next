@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = { 
     images: {
-    domains: ['localhost'], 
+    domains: ['localhost','ivory-llama-451678.hostingersite.com'], 
     remotePatterns: [
       {
         protocol: 'https',

@@ -25,10 +25,14 @@ interface PhotoCardProps {
   created_at: string
   url: string
   onDelete: () => Promise<void>
-  onAddToAlbum: () => void
+  uploader:{
+    id:number
+    name:string
+  }
+  user_id:number
 }
 
-export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) {
+export function PhotoCard({ id, title, created_at: date, url, uploader }: PhotoCardProps) {
   const [isFullSizeDialogOpen, setIsFullSizeDialogOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -89,8 +93,11 @@ export function PhotoCard({ id, title, created_at: date, url }: PhotoCardProps) 
           </div>
           <div className="p-4">
             <h3 className="text-sm font-bold text-zinc-900">{title}</h3>
+
+            { (uploader.name)? <p className="text-sm text-zinc-500">Uploaded by: {uploader.name}</p> : "" }
+
             <p className="text-sm text-zinc-500">{`${days[newDate.getDay()]} `}</p>
-            <p className="text-sm text-zinc-500">{` ${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`}</p>
+            <p className="text-sm text-zinc-500">Date: {` ${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`}</p>
           </div>
         </CardContent>
       </Card>

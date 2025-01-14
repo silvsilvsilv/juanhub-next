@@ -21,7 +21,6 @@ interface Image {
   url: string;
   created_at:string;
   onDelete: () => Promise<void>;
-  onAddToAlbum: () => Promise<void>;
 }
 
 
@@ -120,6 +119,7 @@ export default function AllPhotosPage() {
             <PhotoCard
               key={photo.id}
               {...photo}
+              uploader={ {id:0,name:""} }
             />
           ))}
         </div>

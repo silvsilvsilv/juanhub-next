@@ -15,7 +15,6 @@ interface Image {
   url: string;
   created_at:string;
   onDelete: () => Promise<void>;
-  onAddToAlbum: () => void;
 }
 
 export default function Page() {
@@ -74,7 +73,7 @@ export default function Page() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {recentPhotos.map((photo, index) => (
-              <PhotoCard key={index} {...photo} />
+              <PhotoCard key={index} {...photo} uploader={ {id:0,name:""} } />
             ))}
           </div>
         </main>

@@ -32,7 +32,7 @@ export default function Homepage(){
                         
                         <div className="flex justify-left space-x-4">
                             <Button className="inline-flex max-w-fit">
-                                <Link href="/dashboard">
+                                <Link href="/all-uploads">
                                     Explore
                                 </Link>
                             </Button>
