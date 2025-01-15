@@ -120,7 +120,7 @@ export default function AllUploadsPage() {
             <PhotoCard
                 key={photo.id}
                 {...photo}
-                url={`http://localhost:8000/storage/${photo.path}`}
+                url={`https://ivory-llama-451678.hostingersite.com/storage/${photo.path}`}
                 uploader={photo.user}
                 />
             ))}
