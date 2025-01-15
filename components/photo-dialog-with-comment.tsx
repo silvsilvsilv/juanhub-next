@@ -34,7 +34,7 @@ interface Comment {
   content: string
   created_at: string
   image_id:number
-  isEditing?: boolean
+  isEditing: boolean
   user:{
     id:number
     name:string
@@ -45,8 +45,7 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
 
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
-  const [editingComment, setEditingComment] = useState<string>("")
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  // const [editingComment, setEditingComment] = useState<string>("")
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<string>("");
 
@@ -54,7 +53,13 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
     const fetchComments = async () =>{
       try {
         const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/images/${photo.id}/comments`);
-        setComments(response.data);
+        const transformedData = response.data.map((comment: Comment) => ({
+          ...comment, // Include the original comment data
+          isEditing: false, // Example of a new key
+        }));
+        setComments(transformedData);
+        console.log(response.data);
+        console.log(transformedData)
       } catch (error) {
           console.error('Error fetching comments:', error);
       }
@@ -70,18 +75,25 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
   }, [photo.id])
   
   
-  const handleEditComment = (id: number, newContent: string) => {
-    updateComment(id,newContent);
-  }
+  // const handleEditComment = (id: number, newContent: string) => {
+  //   updateComment(id,newContent);
+  // }
 
   const handleDeleteComment = (id: number) => {
     deleteComment(id);
   }
 
-  const toggleEditComment = (id: number, content: string) => {
-    setIsEditing(!isEditing)
-    handleEditComment(id, content)
-  }
+  // const toggleEditComment = (id: number, content: string) => {
+  //   // setIsEditing(!isEditing)
+  //   const idx = findCommentIndexById(id)
+  //   const commentToEdit = comments[idx].isEditing;
+  //   setComments(!commentToEdit);
+  //   handleEditComment(id, content)
+  // }
+
+  // const findCommentIndexById = (id:number) => {
+  //   return comments.findIndex(comment => comment.id === id);
+  // };
 
   const handleAddComment = () =>{
     addComment(newComment);
@@ -89,10 +101,11 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
 
   const addComment = async (newContent:string) => {
     try{
+      const userId = localStorage.getItem('userId');
       const response = await axios.post(`https://ivory-llama-451678.hostingersite.com/api/comments`,{
         content:newContent,
         image_id:photo.id,
-        user_id: localStorage.getItem('userId'),
+        user_id: userId,
       });
       console.log("Comment added successfully:",response.data);
     } catch (error) {
@@ -100,18 +113,18 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
     }
   }
 
-  const updateComment = async (commentId:number, newContent:string) => {
-    try {
-      const response = await axios.post(`https://ivory-llama-451678.hostingersite.com/api/comments/${commentId}`, {
-        content: newContent,
-      });
-      console.log('Comment updated:', response.data);
-      alert('Comment updated successfully');
-    } catch (error) {
-      console.error('Error updating comment:', error);
-      alert('Failed to update comment');
-    }
-  };
+  // const updateComment = async (commentId:number, newContent:string) => {
+  //   try {
+  //     const response = await axios.post(`https://ivory-llama-451678.hostingersite.com/api/comments/${commentId}`, {
+  //       content: newContent,
+  //     });
+  //     console.log('Comment updated:', response.data);
+  //     // alert('Comment updated successfully');
+  //   } catch (error) {
+  //     console.error('Error updating comment:', error);
+  //     // alert('Failed to update comment');
+  //   }
+  // };
 
   const deleteComment = async (commentId:number) => {
     try{
@@ -153,28 +166,16 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
                     <p className="font-semibold">{comment.user.name}</p>
                     {isLoggedIn && currentUser === comment.user.name && (
                       <div>
-                        <Button variant="ghost" size="sm" onClick={() => toggleEditComment(comment.id, comment.content)}>
-                          {comment.isEditing ? 'Cancel' : 'Edit'}
-                        </Button>
                         <Button variant="ghost" size="sm" onClick={() => handleDeleteComment(comment.id)}>
                           Delete
                         </Button>
                       </div>
                     )}
                   </div>
-                  {isEditing ? (
-                    <div className="mt-2">
-                      <Input
-                        value={editingComment}
-                        onChange={(e) => setEditingComment(e.target.value)}
-                        className="mb-2"
-                      />
-                      <Button onClick={() => handleEditComment(comment.id, editingComment)}>Save</Button>
-                    </div>
-                  ) : (
+                  
                     <p>{comment.content}</p>
-                  )}
-                  <p className="text-xs text-gray-500">{comment.created_at}</p>
+                  
+                  <p className="text-xs text-gray-500">{comment.created_at.split('T')[0]}</p>
                 </div>
               ))}
             </ScrollArea>
