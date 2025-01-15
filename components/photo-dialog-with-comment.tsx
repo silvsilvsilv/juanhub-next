@@ -97,6 +97,7 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
 
   const handleAddComment = () =>{
     addComment(newComment);
+    window.location.reload();
   }
 
   const addComment = async (newContent:string) => {
