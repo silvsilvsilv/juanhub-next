@@ -105,7 +105,7 @@ export function PhotoCard({ id, title, created_at: date, url, uploader }: PhotoC
       <FullSizePhotoDialog
         isOpen={isFullSizeDialogOpen}
         onClose={()=>setIsFullSizeDialogOpen(false)}
-        photo={ { title, url } }
+        photo={ {id, title, date, url, uploader} }
       />
       
       <EditPhotoModal

@@ -1,58 +1,134 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Image from "next/image"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { X } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface FullSizePhotoDialogProps {
   isOpen: boolean
   onClose: () => void
   photo: {
+    id: number
     title: string
+    date: string
     url: string
+    uploader:{
+      id:number
+      name:string
+    } 
   }
+}
+interface Comment {
+  id: number
+  user_id: number
+  content: string
+  created_at: string
+  image_id:number
+  isEditing?: boolean
+  replies:[Comment]
 }
 
 export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDialogProps) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-    }
+  const [comments, setComments] = useState<Comment[]>([])
+  const [newComment, setNewComment] = useState("")
+  const [editingComment, setEditingComment] = useState<string>("")
+  const [isEditing, setIsEditing] = useState(false);
+  
+  const handleEditComment = (id: string, newContent: string) => {
+    setComments(comments.map(comment => 
+      comment.id === id ? { ...comment, content: newContent, isEditing: false } : comment
+    ))
+  }
 
-    window.addEventListener('resize', updateDimensions)
-    updateDimensions()
+  const handleDeleteComment = (id: string) => {
+    setComments(comments.filter(comment => comment.id !== id))
+  }
 
-    return () => window.removeEventListener('resize', updateDimensions)
-  }, [])
+  const toggleEditComment = (id: string, content: string) => {
+    setComments(comments.map(comment => 
+      comment.id === id ? { ...comment, isEditing: !comment.isEditing } : { ...comment, isEditing: false }
+    ))
+    setEditingComment(content)
+  }
+
+  if (!photo) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-transparent border-none" onClick={onClose}>
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm"  />
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="min-h-full flex items-center justify-center p-4">
-            <div className="relative max-w-full max-h-full">
-              <Image
-                src={photo.url}
-                alt={photo.title}
-                width={dimensions.width}
-                height={dimensions.height}
-                className="object-contain max-w-full max-h-[calc(100vh-2rem)]"
-              />
-              <button
-                onClick={onClose}
-                className="absolute top-2 right-2 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
-                aria-label="Close full-size photo"
-              >
-                <X size={24} />
-              </button>
-            </div>
+      <DialogContent className="sm:max-w-[800px]">
+        <DialogHeader>
+          <DialogTitle>{photo.title}</DialogTitle>
+          <DialogDescription>
+            Uploaded by {photo.uploader.name} on {photo.date}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Image
+              src={photo.url}
+              alt={photo.title}
+              width={400}
+              height={300}
+              className="w-full h-auto object-contain"
+            />
+          </div>
+          <div className="flex flex-col h-full">
+            <h3 className="text-lg font-semibold mb-2">Comments</h3>
+            <ScrollArea className="flex-grow mb-4 h-[200px]">
+              {comments.map((comment) => (
+                <div key={comment.id} className="mb-2 p-2 bg-gray-100 rounded">
+                  <div className="flex justify-between items-start">
+                    <p className="font-semibold">{comment.user}</p>
+                    {isLoggedIn && currentUser === comment.user && (
+                      <div>
+                        <Button variant="ghost" size="sm" onClick={() => toggleEditComment(comment.id, comment.content)}>
+                          {comment.isEditing ? 'Cancel' : 'Edit'}
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => handleDeleteComment(comment.id)}>
+                          Delete
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                  {isEditing ? (
+                    <div className="mt-2">
+                      <Input
+                        value={editingComment}
+                        onChange={(e) => setEditingComment(e.target.value)}
+                        className="mb-2"
+                      />
+                      <Button onClick={() => handleEditComment(comment.id, editingComment)}>Save</Button>
+                    </div>
+                  ) : (
+                    <p>{comment.content}</p>
+                  )}
+                  <p className="text-xs text-gray-500">{comment.created_at}</p>
+                </div>
+              ))}
+            </ScrollArea>
+            {isLoggedIn ? (
+              <div>
+                <Input
+                  placeholder="Add a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className="mb-2"
+                />
+                <Button onClick={handleAddComment}>Add Comment</Button>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">Please log in to add comments.</p>
+            )}
           </div>
         </div>
       </DialogContent>
