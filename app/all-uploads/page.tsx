@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input"
 import { ArrowUpDown, Search } from 'lucide-react'
 import axios from "axios"
 import { PhotoCard } from "@/components/read-only-photo-card"
-import { Navigation } from "@/components/navigation-no-login"
+import { NavigationNoLogin } from "@/components/navigation-no-login"
+import { Navigation } from "@/components/navigation"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,7 @@ export default function AllUploadsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [sortOption, setSortOption] = useState<SortOption>('dateDesc')
+  const [currentUser, setCurrentUser] = useState<string|null>("");
 
   const filteredUploads = images.filter(upload =>
     upload.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -42,8 +44,10 @@ export default function AllUploadsPage() {
   useEffect(() => {
     const fetchImages = async () => {
        try {
+            const user = localStorage.getItem("user") 
             const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/photos`);
             setImages(response.data);
+            setCurrentUser(user)
         } catch (error) {
             console.error('Error fetching images:', error);
         }
@@ -72,7 +76,7 @@ export default function AllUploadsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-        <Navigation/>
+        { currentUser? (<Navigation/>) :(<NavigationNoLogin/>)}
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <h1 className="text-3xl font-bold text-zinc-900 mb-6">User Uploads</h1>

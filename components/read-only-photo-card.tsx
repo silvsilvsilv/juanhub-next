@@ -2,7 +2,8 @@
 
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
-import { FullSizePhotoDialog } from "./full-size-photo-dialog"
+import { FullSizePhotoDialog } from "./photo-dialog-with-comment"
+// import { FullSizePhotoDialog } from "./full-size-photo-dialog"
 import { useState } from "react"
 
 
@@ -57,7 +58,7 @@ export function PhotoCard({ id, title, created_at: date, url, uploader }: PhotoC
       <FullSizePhotoDialog
         isOpen={isFullSizeDialogOpen}
         onClose={()=>setIsFullSizeDialogOpen(false)}
-        photo={ { title, url } }
+        photo={ { id, title, url, date, uploader } }
       />
       
     </>

@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { PlusCircle, Grid } from 'lucide-react'
+import { PlusCircle, Grid, ImageIcon } from 'lucide-react'
 import { ProfileDropdown } from "@/components/profile-dropdown"
 import { UploadModal } from "@/components/upload-modal"
 import { useState } from "react"
@@ -32,6 +32,12 @@ export function Navigation() {
             <Button variant="ghost" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100">
               <Grid className="mr-2 h-4 w-4" />
               All Photos
+            </Button>
+          </Link>
+          <Link href="/all-uploads">
+            <Button variant="ghost" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100">
+              <ImageIcon className="mr-2 h-4 w-4" />
+              All Uploads
             </Button>
           </Link>
         </nav>

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+// import { FullSizePhotoDialog } from "./photo-dialog-with-comment"
 import { FullSizePhotoDialog } from "./full-size-photo-dialog"
 import { EditPhotoModal } from "./edit-photo-modal"
 import { ConfirmationModal } from "./confirmation-modal"
@@ -105,7 +106,8 @@ export function PhotoCard({ id, title, created_at: date, url, uploader }: PhotoC
       <FullSizePhotoDialog
         isOpen={isFullSizeDialogOpen}
         onClose={()=>setIsFullSizeDialogOpen(false)}
-        photo={ {id, title, date, url, uploader} }
+        // photo={ {id, title, date, url, uploader} }
+        photo = { {title,url} }
       />
       
       <EditPhotoModal

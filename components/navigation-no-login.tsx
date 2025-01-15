@@ -14,7 +14,7 @@ const jetbrains = JetBrains_Mono({
   display:'swap',
 });
 
-export function Navigation() {
+export function NavigationNoLogin() {
 
   const router = useRouter();
   return (
