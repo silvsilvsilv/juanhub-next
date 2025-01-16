@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowUpDown, Search } from 'lucide-react'
 import axios from "axios"
-import { PhotoCard } from "@/components/read-only-photo-card"
+import { ReadOnlyPhotoCard } from "@/components/read-only-photo-card"
 import { NavigationNoLogin } from "@/components/navigation-no-login"
 import { Navigation } from "@/components/navigation"
 import {
@@ -30,6 +30,9 @@ interface UploadedImage {
 
 type SortOption = 'dateAsc' | 'dateDesc' | 'nameAsc' | 'nameDesc'
 
+const backendUrl = 'http://localhost:8000'
+// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+
 export default function AllUploadsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [images, setImages] = useState<UploadedImage[]>([]);
@@ -41,20 +44,21 @@ export default function AllUploadsPage() {
     upload.user.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  useEffect(() => {
-    const fetchImages = async () => {
-       try {
-            const user = localStorage.getItem("user") 
-            const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/photos`);
-            setImages(response.data);
-            setCurrentUser(user)
-        } catch (error) {
-            console.error('Error fetching images:', error);
-        }
-    };
-
-    fetchImages();
+  const fetchImages = useCallback(async () =>{
+    try {
+      const user = localStorage.getItem("user")
+      const response = await axios.get(`${backendUrl}/api/photos`)
+      setImages(response.data)
+      setCurrentUser(user)
+    } catch (error) {
+      console.error("Error fetching images",error)
+    }
+  
   }, []);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   const sortedAndFilteredPhotos = useMemo(() => {
       return filteredUploads
@@ -76,7 +80,7 @@ export default function AllUploadsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-        { currentUser? (<Navigation/>) :(<NavigationNoLogin/>)}
+        { currentUser? (<Navigation fetchImages={fetchImages}/>) :(<NavigationNoLogin/>)}
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <h1 className="text-3xl font-bold text-zinc-900 mb-6">User Uploads</h1>
@@ -117,7 +121,7 @@ export default function AllUploadsPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {sortedAndFilteredPhotos.map((photo) => (
-            <PhotoCard
+            <ReadOnlyPhotoCard
                 key={photo.id}
                 {...photo}
                 url={`https://ivory-llama-451678.hostingersite.com/storage/${photo.path}`}

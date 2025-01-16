@@ -16,7 +16,11 @@ const jetbrains = JetBrains_Mono({
   display:'swap',
 });
 
-export function Navigation() {
+type Fetch = {
+  fetchImages:()=>Promise<void>
+}
+
+export function Navigation({fetchImages}:Fetch) {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
 
   return (
@@ -31,7 +35,7 @@ export function Navigation() {
           <Link href="/all-photos">
             <Button variant="ghost" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100">
               <Grid className="mr-2 h-4 w-4" />
-              All Photos
+              My Photos
             </Button>
           </Link>
           <Link href="/all-uploads">
@@ -56,6 +60,7 @@ export function Navigation() {
       <UploadModal 
         isOpen={isUploadModalOpen} 
         onClose={() => setIsUploadModalOpen(false)} 
+        fetchImages={fetchImages}
       />
     </div>
   )

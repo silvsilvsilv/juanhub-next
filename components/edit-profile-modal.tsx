@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -51,7 +51,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
 //   const [profilePicture, setProfilePicture] = useState("")
   const [isDeleteAccountDialogOpen, setIsDeleteAccountDialogOpen] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
 
   const router = useRouter();
 
@@ -63,7 +63,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
 
     const userId = localStorage.getItem('userId');
     const id = parseInt(userId || "0") ;
-    onDelete(id);
+    
 
     localStorage.removeItem('user');
     localStorage.removeItem('userId');
@@ -71,19 +71,26 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
     localStorage.removeItem('email');
     localStorage.removeItem('profile_image')
     localStorage.removeItem('profile')
+    onDelete(id);
     router.push("/");
   }
 
   const onDelete = async (id: number) => {
     try {
       await axios.delete(`https://ivory-llama-451678.hostingersite.com/api/users/${id}`);
-      window.location.reload()
+
     } catch (error) {
       console.error('Error deleting image:', error);
     }
   };
 
-
+  useEffect(() => {
+    if(user.profile_image){
+      setPreviewUrl(`https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`)
+    }  
+    
+  }, [user.profile_image])
+  
   const userInitial = user.name.slice(0,1).toUpperCase();
 
   // Handler for input changes
@@ -104,8 +111,6 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
   };
 
   const passwordsMatch = password && password.password !== password.confirmPass
-
-  const { toast } = useToast();
 
   const handleUpdate = async (e:  React.FormEvent) => {
     e.preventDefault();
@@ -138,23 +143,15 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
         }
       );
 
-      toast({
-        title: "Login Failed",
-        description: "Invalid email or password. Please try again.",
-        variant: "destructive", // Use a variant for error styling
-        duration:8000,
-      });
-
       setPreviewUrl("");
+      
       console.log(response.data); 
+      console.log("Profile updated")
+      onClose()
     } catch (error) {
       console.error('Error updating user details:', error);
       
     }
-
-    console.log("Profile updated")
-    onClose()
-
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,7 +162,7 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
       const fileUrl = URL.createObjectURL(file);
       setPreviewUrl(fileUrl);
     } else {
-      setPreviewUrl(null);
+      setPreviewUrl(`https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`);
     }
   }
 
@@ -178,11 +175,11 @@ export function EditProfileModal({ isOpen, onClose, user, password, setUser, set
             Make changes to your profile here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleUpdate} method="PUT">
+        <form onSubmit={handleUpdate}>
           <div className="grid gap-4 py-4">
             <div className="flex items-center space-x-4">
               <Avatar className="w-16 h-16">
-                <AvatarImage src={`${user.profile_image? `https://ivory-llama-451678.hostingersite.com/storage/${user.profile_image}`: previewUrl}`} />
+                <AvatarImage src={previewUrl} />
                 <AvatarFallback>{userInitial}</AvatarFallback>
               </Avatar>
               <Input

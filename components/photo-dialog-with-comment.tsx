@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import {
   Dialog,
@@ -13,6 +13,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import axios from "axios"
+import { Trash2 } from "lucide-react"
+import { ConfirmationModal } from "./confirmation-modal"
 
 interface FullSizePhotoDialogProps {
   isOpen: boolean
@@ -41,29 +43,29 @@ interface Comment {
   }
 }
 
-export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDialogProps) {
+const backendUrl = 'http://localhost:8000'
+// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+
+export function PhotoDialogWithComment({ isOpen, onClose, photo }: FullSizePhotoDialogProps) {
 
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
-  // const [editingComment, setEditingComment] = useState<string>("")
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [currentUser, setCurrentUser] = useState<string>("")
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+  const [commentToDelete, setCommentToDelete] = useState<number>(0)
+  
+  const fetchComments = useCallback(async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/images/${photo.id}/comments`);
+      setComments(response.data);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  }, [photo.id]); 
+
 
   useEffect(() => {
-    const fetchComments = async () =>{
-      try {
-        const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/images/${photo.id}/comments`);
-        const transformedData = response.data.map((comment: Comment) => ({
-          ...comment, // Include the original comment data
-          isEditing: false, // Example of a new key
-        }));
-        setComments(transformedData);
-        console.log(response.data);
-        console.log(transformedData)
-      } catch (error) {
-          console.error('Error fetching comments:', error);
-      }
-    }
     const user = localStorage.getItem('name');
 
     if(user){
@@ -72,7 +74,7 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
     }
 
     fetchComments();
-  }, [photo.id])
+  }, [fetchComments])
   
   
   // const handleEditComment = (id: number, newContent: string) => {
@@ -80,7 +82,8 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
   // }
 
   const handleDeleteComment = (id: number) => {
-    deleteComment(id);
+    setIsDeleteModalOpen(true)
+    setCommentToDelete(id)
   }
 
   // const toggleEditComment = (id: number, content: string) => {
@@ -97,17 +100,21 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
 
   const handleAddComment = () =>{
     addComment(newComment);
-    window.location.reload();
+    fetchComments();
   }
 
   const addComment = async (newContent:string) => {
     try{
       const userId = localStorage.getItem('userId');
-      const response = await axios.post(`https://ivory-llama-451678.hostingersite.com/api/comments`,{
+      const response = await axios.post(`${backendUrl}/api/comments`,{
         content:newContent,
         image_id:photo.id,
         user_id: userId,
       });
+
+      // Re-fetch the comments to update the state
+      await fetchComments();
+      setNewComment(''); // Clear the input field
       console.log("Comment added successfully:",response.data);
     } catch (error) {
       console.error("Error adding comment:", error)
@@ -129,9 +136,9 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
 
   const deleteComment = async (commentId:number) => {
     try{
-      const response = await axios.delete(`https://ivory-llama-451678.hostingersite.com/api/comments/${commentId}`)
+      const response = await axios.delete(`${backendUrl}/api/comments/${commentId}`)
       console.log(response.data);
-      window.location.reload();
+      fetchComments()
     } catch(error) {
       console.error("Error deleting comment", error)
     }
@@ -140,63 +147,73 @@ export function FullSizePhotoDialog({ isOpen, onClose, photo }: FullSizePhotoDia
   if (!photo) return null
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[800px] bg-white">
-        <DialogHeader>
-          <DialogTitle>{photo.title}</DialogTitle>
-          <DialogDescription>
-            Uploaded by {photo.uploader.name} on {photo.date.split('T')[0]}
-          </DialogDescription>
-        </DialogHeader>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Image
-              src={photo.url}
-              alt={photo.title}
-              width={400}
-              height={300}
-              className="w-full h-auto object-contain"
-            />
-          </div>
-          <div className="flex flex-col h-full">
-            <h3 className="text-lg font-semibold mb-2">Comments</h3>
-            <ScrollArea className="flex-grow mb-4 h-[200px]">
-              {comments.map((comment) => (
-                <div key={comment.id} className="mb-2 p-2 bg-gray-100 rounded">
-                  <div className="flex justify-between items-start">
-                    <p className="font-semibold">{comment.user.name}</p>
-                    {isLoggedIn && currentUser === comment.user.name && (
-                      <div>
-                        <Button variant="ghost" size="sm" onClick={() => handleDeleteComment(comment.id)}>
-                          Delete
-                        </Button>
-                      </div>
-                    )}
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="sm:max-w-[800px] bg-white">
+          <DialogHeader>
+            <DialogTitle>{photo.title}</DialogTitle>
+            <DialogDescription>
+              Uploaded by {photo.uploader.name} on {photo.date.split('T')[0]}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Image
+                src={photo.url}
+                alt={photo.title}
+                width={400}
+                height={300}
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            <div className="flex flex-col h-full">
+              <h3 className="text-lg font-semibold mb-2">Comments</h3>
+              <ScrollArea className="flex-grow mb-4 h-[200px]">
+                {comments.map((comment) => (
+                  <div key={comment.id} className="mb-2 p-2 bg-gray-100 rounded">
+                    <div className="flex justify-between items-start">
+                      <p className="font-semibold">{comment.user.name}</p>
+                      {isLoggedIn && currentUser === comment.user.name && (
+                        <div>
+                          <Button variant="destructive" size="sm" onClick={() => handleDeleteComment(comment.id)}>
+                            <Trash2/>
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    
+                      <p>{comment.content}</p>
+                    
+                    <p className="text-xs text-gray-500">{comment.created_at.split('T')[0]}</p>
                   </div>
-                  
-                    <p>{comment.content}</p>
-                  
-                  <p className="text-xs text-gray-500">{comment.created_at.split('T')[0]}</p>
+                ))}
+              </ScrollArea>
+              {isLoggedIn ? (
+                <div>
+                  <Input
+                    placeholder="Add a comment..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="mb-2"
+                  />
+                  <Button onClick={handleAddComment}>Add Comment</Button>
                 </div>
-              ))}
-            </ScrollArea>
-            {isLoggedIn ? (
-              <div>
-                <Input
-                  placeholder="Add a comment..."
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  className="mb-2"
-                />
-                <Button onClick={handleAddComment}>Add Comment</Button>
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500">Please log in to add comments.</p>
-            )}
+              ) : (
+                <p className="text-sm text-gray-500">Please log in to add comments.</p>
+              )}
+            </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}  
+        title={"Delete Comment"}
+        description="Are you sure you want to delete this comment? This action cannot be undone."
+        onConfirm={()=>deleteComment(commentToDelete)}
+      />
+    </>
   )
 }
 

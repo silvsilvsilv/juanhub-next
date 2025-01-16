@@ -19,18 +19,21 @@ interface EditPhotoModalProps {
   onClose: () => void
   currentTitle: string
   id:number
+  fetchImages: () => Promise<void>
 }
 
-export function EditPhotoModal({ id, isOpen, onClose, currentTitle }: EditPhotoModalProps) {
+export function EditPhotoModal({ id, isOpen, onClose, currentTitle, fetchImages }: EditPhotoModalProps) {
   const [title, setTitle] = useState(currentTitle)
 
   const handleUpdateTitle = async (id:number) => {
     try {
-        await axios.put(`https://ivory-llama-451678.hostingersite.com/api/images/${id}`, { title: title });
-        window.location.reload();
+        await axios.post(`https://ivory-llama-451678.hostingersite.com/api/images/${id}`, { title: title });
+        // window.location.reload()
     } catch (error) {
       console.error('Error updating title:', error);
     }
+
+    await fetchImages()
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -38,6 +41,7 @@ export function EditPhotoModal({ id, isOpen, onClose, currentTitle }: EditPhotoM
     if (title.trim()) {
       handleUpdateTitle(id)
     }
+    onClose()
   }
 
 

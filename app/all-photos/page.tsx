@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, useCallback } from "react"
 import { Navigation } from "@/components/navigation"
 import { PhotoCard } from "@/components/photo-card"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,14 @@ interface Image {
   url: string;
   created_at:string;
   onDelete: () => Promise<void>;
+  user:{
+    id:number;
+    name:string;
+  }
 }
+
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 
 type SortOption = 'dateAsc' | 'dateDesc' | 'nameAsc' | 'nameDesc'
@@ -31,23 +38,23 @@ export default function AllPhotosPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOption, setSortOption] = useState<SortOption>('dateDesc')
 
-  useEffect(() => {
-    const fetchImages = async () => {
-       try {
-            const userId = localStorage.getItem('userId');
-            const response = await axios.get(`https://ivory-llama-451678.hostingersite.com/api/images`, {
-            params: {
-                user_id: userId,
-            },
-            });
-            setImages(response.data);
-        } catch (error) {
-            console.error('Error fetching images:', error);
-        }
-    };
-
-    fetchImages();
+  const fetchImages = useCallback(async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      const response = await axios.get(`${backendUrl}/api/images`, {
+        params: {
+          user_id: userId,
+        },
+      });
+      setImages(response.data)
+    } catch (error){
+      console.error('Error fetching images: ',error)
+    }
   }, []);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   const sortedAndFilteredPhotos = useMemo(() => {
     return images
@@ -73,10 +80,10 @@ export default function AllPhotosPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <Navigation />
+      <Navigation fetchImages={fetchImages}/>
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <h2 className="text-2xl font-bold text-zinc-900">All Photos</h2>
+          <h2 className="text-2xl font-bold text-zinc-900">My Photos</h2>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
             <div className="flex items-center space-x-2">
               <Input
@@ -119,7 +126,8 @@ export default function AllPhotosPage() {
             <PhotoCard
               key={photo.id}
               {...photo}
-              uploader={ {id:0,name:""} }
+              uploader={photo.user}
+              fetchImages={fetchImages}
             />
           ))}
         </div>

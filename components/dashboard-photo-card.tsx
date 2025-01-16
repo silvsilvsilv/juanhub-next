@@ -11,8 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { PhotoDialogWithComment } from "./photo-dialog-with-comment"
-// import { FullSizePhotoDialog } from "./full-size-photo-dialog"
+import { FullSizePhotoDialog } from "./full-size-photo-dialog"
 import { EditPhotoModal } from "./edit-photo-modal"
 import { ConfirmationModal } from "./confirmation-modal"
 
@@ -34,7 +33,7 @@ interface PhotoCardProps {
   fetchImages: () => Promise<void>
 }
 
-export function PhotoCard({ id, title, created_at: date, url, uploader, fetchImages }: PhotoCardProps) {
+export function PhotoCard({ id, title, created_at: date, url, fetchImages }: PhotoCardProps) {
   const [isFullSizeDialogOpen, setIsFullSizeDialogOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -46,7 +45,7 @@ export function PhotoCard({ id, title, created_at: date, url, uploader, fetchIma
   const onDelete = async (id: number) => {
       try {
         await axios.delete(`https://ivory-llama-451678.hostingersite.com/api/images/${id}`);
-        await fetchImages()
+        window.location.reload()
       } catch (error) {
         console.error('Error deleting image:', error);
       }
@@ -96,7 +95,7 @@ export function PhotoCard({ id, title, created_at: date, url, uploader, fetchIma
           <div className="p-4">
             <h3 className="text-sm font-bold text-zinc-900">{title}</h3>
 
-            { (uploader.name)? <p className="text-sm text-zinc-500">Uploaded by: {uploader.name}</p> : "" }
+            {/* { (uploader.name)? <p className="text-sm text-zinc-500">Uploaded by: {uploader.name}</p> : "" } */}
 
             <p className="text-sm text-zinc-500">{`${days[newDate.getDay()]} `}</p>
             <p className="text-sm text-zinc-500">Date: {` ${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`}</p>
@@ -104,13 +103,19 @@ export function PhotoCard({ id, title, created_at: date, url, uploader, fetchIma
         </CardContent>
       </Card>
 
-      <PhotoDialogWithComment
+      {/* <PhotoDialogWithComment
         isOpen={isFullSizeDialogOpen}
         onClose={()=>setIsFullSizeDialogOpen(false)}
         photo={ {id, title, date, url, uploader} }
         // photo = { {title,url} }
-      />
+      /> */}
       
+      <FullSizePhotoDialog
+        isOpen={isFullSizeDialogOpen}
+        onClose={() => setIsFullSizeDialogOpen(false)}
+        photo={ {title,url} }
+      />
+
       <EditPhotoModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false) }

@@ -19,9 +19,10 @@ import axios from 'axios'
 interface UploadModalProps {
   isOpen: boolean
   onClose: () => void
+  fetchImages: () => Promise<void>
 }
 
-export function UploadModal({ isOpen, onClose }: UploadModalProps) {
+export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [title, setTitle] = useState("")
 
@@ -71,8 +72,7 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
         console.error('Error uploading image:',error);
       }
 
-      window.location.reload();
-
+      await fetchImages()
       // After upload is complete, close the modal and reset the state
       onClose()
       setSelectedFile(null)
