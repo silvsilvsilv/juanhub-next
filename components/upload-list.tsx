@@ -55,8 +55,10 @@ export function UploadList() {
         ...item, // Keep other properties the same
         is_approved: !!item.is_approved // Convert 0 to false and 1 to true
         }));
-        setImages(updatedResponse)
-        console.log(response.data.data)
+        
+        setImages(updatedResponse.reverse())
+        // console.log(response.data.data)
+        console.log(updatedResponse)
     } catch (error){
       console.error('Error fetching images: ',error)
     }
