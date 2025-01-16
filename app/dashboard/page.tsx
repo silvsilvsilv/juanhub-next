@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import axios from "axios"
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { UploadListUser } from "@/components/upload-list-user"
+import { useGlobalState } from "@/context/GlobalStateContext"
 
 interface Image {
   id: number;
@@ -16,22 +19,33 @@ interface Image {
   url: string;
   created_at:string;
   onDelete: () => Promise<void>;
-   uploader:{
+  uploader:{
     id:number
     name:string
   }
+  is_approved:boolean
 }
 
-// const backendUrl = 'http://localhost:8000'
-const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+const backendUrl = 'http://localhost:8000'
+// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export default function Page() {
   const [images, setImages] = useState<Image[]>([]);
   const [username, setUsername] = useState<string>("");
-  
+
+  const router = useRouter()
+  const { imagesUpdated } = useGlobalState();
+
+
    const fetchImages = useCallback(async () => {
     try {
       const userId = localStorage.getItem('userId');
+      const isAdmin = localStorage.getItem('isAdmin')
+
+      if(isAdmin == 'true'){
+        router.push('/admin')
+      }
+      
       const response = await axios.get(`${backendUrl}/api/images`, {
         params: {
           user_id: userId,
@@ -41,13 +55,24 @@ export default function Page() {
     } catch (error){
       console.error('Error fetching images: ',error)
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     fetchImages();
   }, [fetchImages]);
 
-  const sortedImages = [...images].sort((a, b) => {
+  useEffect(() => {
+    if (imagesUpdated) {
+      fetchImages();
+      console.log("ASDHFJKASHDFKJ")
+    }
+    
+  }, [imagesUpdated,fetchImages]);
+
+  const approvedImages = images.filter(item => item.is_approved == true);
+  const pendingImages = images.filter(item => item.is_approved == false);
+
+  const sortedImages = [...approvedImages].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
@@ -69,7 +94,7 @@ export default function Page() {
             </h1>
           </div>
           <div className="mb-8">
-            <PhotoStats totalPhotos={images.length}/>
+            <PhotoStats totalPhotos={approvedImages.length} totalPending={pendingImages.length}/>
           </div>
           <div className="mb-6 flex justify-between items-center">
             <h2 className="text-2xl font-bold text-zinc-900">Recent Photos</h2>
@@ -81,9 +106,18 @@ export default function Page() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {recentPhotos.map((photo, index) => (
-              <PhotoCard key={index} {...photo} uploader={photo.uploader}  fetchImages={fetchImages}/>
+              ( !!photo.is_approved && <PhotoCard key={index} {...photo} uploader={photo.uploader} fetchImages={fetchImages}/>)
             ))}
           </div>
+          <div className="mb-6 mt-6 flex justify-between items-center">
+            <h2 className="text-2xl font-bold text-zinc-900">ASd Photos</h2>
+            <div className="flex items-center space-x-4">
+              <Link href="/all-photos">
+                <Button variant="outline">View All</Button>
+              </Link>
+            </div>
+          </div>
+          <UploadListUser fetchImages={fetchImages} images={ pendingImages }/>
         </main>
       </div>
   )

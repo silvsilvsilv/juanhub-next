@@ -1,9 +1,5 @@
-'use client'
 
-export default function Test(){
-  return(
-    <div>
-      Hello World
-    </div>
-  )
-}
+export default function YourComponent() {
+
+  return "Hello World";
+};

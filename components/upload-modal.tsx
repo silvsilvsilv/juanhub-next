@@ -16,12 +16,16 @@ import { Upload } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import axios from 'axios'
 import { SuccessfulUploadModal } from "./uploaded-successful"
+import { useGlobalState } from "@/context/GlobalStateContext"
 
 interface UploadModalProps {
   isOpen: boolean
   onClose: () => void
   fetchImages: () => Promise<void>
 }
+
+const backendUrl = 'http://localhost:8000'
+// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -44,6 +48,7 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
     setTitle(event.target.value)
   }
 
+  const { triggerUpdate } = useGlobalState()
   const handleUpload = async () => {
     if (selectedFile && title) {
       
@@ -65,7 +70,7 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
       formData.append('title', title);
 
       try {
-        const response = await axios.post('https://ivory-llama-451678.hostingersite.com/api/images', formData, {
+        const response = await axios.post(`${backendUrl}/api/images`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
 
@@ -77,7 +82,7 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
 
       await fetchImages()
       // After upload is complete, close the modal and reset the state
-
+      triggerUpdate()
       onClose()
       setSelectedFile(null)
       setTitle("")

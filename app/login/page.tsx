@@ -69,6 +69,7 @@ export default function LoginPage() {
         localStorage.setItem('name', `${response.user.name}`);
         localStorage.setItem('email', `${response.user.email}`);
         localStorage.setItem('profile',`${response.user.profile_image}` )
+        localStorage.setItem('isAdmin', (response.user.is_admin? "true":"false"))
         
         router.push('/dashboard');
       }
