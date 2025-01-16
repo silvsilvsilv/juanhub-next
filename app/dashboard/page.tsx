@@ -22,8 +22,8 @@ interface Image {
   }
 }
 
-const backendUrl = 'http://localhost:8000'
-// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export default function Page() {
   const [images, setImages] = useState<Image[]>([]);

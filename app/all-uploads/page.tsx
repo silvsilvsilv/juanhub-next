@@ -30,8 +30,8 @@ interface UploadedImage {
 
 type SortOption = 'dateAsc' | 'dateDesc' | 'nameAsc' | 'nameDesc'
 
-const backendUrl = 'http://localhost:8000'
-// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export default function AllUploadsPage() {
   const [searchTerm, setSearchTerm] = useState("")
