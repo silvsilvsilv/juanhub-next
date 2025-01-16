@@ -30,7 +30,7 @@ export function SuccessfulUploadModal({ isOpen, onClose, text }: UploadModalProp
       <DialogContent className="sm:max-w-[425px] bg-white py-12">
         <DialogHeader className="items-center">
           <CircleCheckBig className="mb-5 h-10 w-10"/>
-          <DialogTitle className="text-3xl">Success</DialogTitle>
+          <DialogTitle className="text-3xl">Pending approval</DialogTitle>
           <DialogDescription>
            {text}
           </DialogDescription>
