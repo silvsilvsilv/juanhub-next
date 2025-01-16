@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { Upload } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import axios from 'axios'
+import { SuccessfulUploadModal } from "./uploaded-successful"
 
 interface UploadModalProps {
   isOpen: boolean
@@ -25,6 +26,7 @@ interface UploadModalProps {
 export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [title, setTitle] = useState("")
+  const [modal,setModal] = useState(false)
 
   const router = useRouter();
 
@@ -68,12 +70,14 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
         });
 
         console.log('Image uploaded successfully:', response.data);
+        setModal(true)
       } catch (error) {
         console.error('Error uploading image:',error);
       }
 
       await fetchImages()
       // After upload is complete, close the modal and reset the state
+
       onClose()
       setSelectedFile(null)
       setTitle("")
@@ -81,49 +85,56 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
-        <DialogHeader>
-          <DialogTitle>Upload Photos</DialogTitle>
-          <DialogDescription>
-            Choose a photo and give it a title to add to your personal collection.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="photo" className="text-right">
-              Photo
-            </Label>
-            <Input
-              id="photo"
-              type="file"
-              className="col-span-3"
-              onChange={handleFileChange}
-              accept="image/*"
-            />
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="sm:max-w-[425px] bg-white">
+          <DialogHeader>
+            <DialogTitle>Upload Photos</DialogTitle>
+            <DialogDescription>
+              Choose a photo and give it a title to add to your personal collection.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="photo" className="text-right">
+                Photo
+              </Label>
+              <Input
+                id="photo"
+                type="file"
+                className="col-span-3"
+                onChange={handleFileChange}
+                accept="image/*"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="title" className="text-right">
+                Title
+              </Label>
+              <Input
+                id="title"
+                type="text"
+                value={title}
+                onChange={handleTitleChange}
+                className="col-span-3"
+                placeholder="Enter photo title"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="title" className="text-right">
-              Title
-            </Label>
-            <Input
-              id="title"
-              type="text"
-              value={title}
-              onChange={handleTitleChange}
-              className="col-span-3"
-              placeholder="Enter photo title"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" onClick={handleUpload} disabled={!selectedFile || !title}>
-            <Upload className="mr-2 h-4 w-4" />
-            Upload
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <DialogFooter>
+            <Button type="submit" onClick={handleUpload} disabled={!selectedFile || !title}>
+              <Upload className="mr-2 h-4 w-4" />
+              Upload
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <SuccessfulUploadModal
+        isOpen={modal}
+        onClose={()=>setModal(false)}
+      />
+    </>
+    
   )
 }
 
