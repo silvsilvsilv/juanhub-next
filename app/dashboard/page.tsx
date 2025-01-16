@@ -110,12 +110,7 @@ export default function Page() {
             ))}
           </div>
           <div className="mb-6 mt-6 flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-zinc-900">ASd Photos</h2>
-            <div className="flex items-center space-x-4">
-              <Link href="/all-photos">
-                <Button variant="outline">View All</Button>
-              </Link>
-            </div>
+            <h2 className="text-2xl font-bold text-zinc-900">Pending Photos</h2>
           </div>
           <UploadListUser fetchImages={fetchImages} images={ pendingImages }/>
         </main>
