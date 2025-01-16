@@ -26,6 +26,7 @@ interface UploadedImage {
     name:string;
   }
   onDelete: ()=> Promise<void>;
+  is_approved:boolean;
 }
 
 type SortOption = 'dateAsc' | 'dateDesc' | 'nameAsc' | 'nameDesc'
@@ -39,7 +40,9 @@ export default function AllUploadsPage() {
   const [sortOption, setSortOption] = useState<SortOption>('dateDesc')
   const [currentUser, setCurrentUser] = useState<string|null>("");
 
-  const filteredUploads = images.filter(upload =>
+  const approvedImages = images.filter(item => item.is_approved == true);
+
+  const filteredUploads = approvedImages.filter(upload =>
     upload.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     upload.user.name.toLowerCase().includes(searchTerm.toLowerCase())
   )

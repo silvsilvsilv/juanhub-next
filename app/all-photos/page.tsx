@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 
 interface Image {
   id: number;
@@ -25,6 +26,7 @@ interface Image {
     id:number;
     name:string;
   }
+  is_approved:boolean
 }
 
 // const backendUrl = 'http://localhost:8000'
@@ -56,8 +58,10 @@ export default function AllPhotosPage() {
     fetchImages();
   }, [fetchImages]);
 
+  const approvedImages = images.filter(item => item.is_approved == true);
+
   const sortedAndFilteredPhotos = useMemo(() => {
-    return images
+    return approvedImages
       .filter(photo => 
         photo.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
@@ -75,9 +79,18 @@ export default function AllPhotosPage() {
             return 0
         }
       })
-  }, [images, searchQuery, sortOption])
+  }, [approvedImages, searchQuery, sortOption])
 
+  const router = useRouter();
 
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('isAdmin')
+
+    if(isAdmin == 'true') {
+      router.push('/admin')
+    }
+  }, [router])
+  
   return (
     <div className="min-h-screen bg-zinc-50">
       <Navigation fetchImages={fetchImages}/>

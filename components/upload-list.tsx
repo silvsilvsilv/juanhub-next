@@ -23,6 +23,7 @@ import { Badge } from '@/components/ui/badge'
 import { Check, Pencil, Trash, Maximize2 } from 'lucide-react'
 import axios from 'axios'
 import { useGlobalState } from '@/context/GlobalStateContext'
+import { ConfirmationModal } from './confirmation-modal'
 
 interface Images {
   id: number;
@@ -43,6 +44,7 @@ export function UploadList() {
   const [editingUpload, setEditingUpload] = useState<Images | null>(null)
   const [viewingUpload, setViewingUpload] = useState<Images | null>(null)
   const [newTitle, setNewTitle] = useState('')
+  const [deleteModal,setDeleteModal] = useState({toDelete:0, isOpen:false});
   
   const { triggerUpdate } = useGlobalState();
   const { imagesUpdated } = useGlobalState()
@@ -121,6 +123,8 @@ export function UploadList() {
     setViewingUpload(upload)
   }
 
+  const imgToBeDeleted = images.find((obj) => obj.id == deleteModal.toDelete)
+
   return (
     <div>
       <Table>
@@ -169,7 +173,7 @@ export function UploadList() {
                       Edit
                     </Button>
                   )}
-                  <Button size="sm" variant="destructive" onClick={() => handleDelete(upload.id)}>
+                  <Button size="sm" variant="destructive" onClick={() => setDeleteModal({toDelete:upload.id,isOpen:true})}>
                     <Trash className="w-4 h-4 mr-1" />
                     Delete
                   </Button>
@@ -220,6 +224,14 @@ export function UploadList() {
           )}
         </DialogContent>
       </Dialog>
+
+      <ConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={()=> setDeleteModal({...deleteModal,isOpen:false})}
+        onConfirm={() => handleDelete(deleteModal.toDelete)}
+        title={`${(imgToBeDeleted?.is_approved) ? "Delete Image?":"Delete Request"}`}
+        description={`Are you sure you want to delete this ${(imgToBeDeleted?.is_approved) ? "image":"request"}? This action cannot be undone.`}
+      />
     </div>
   )
 }
