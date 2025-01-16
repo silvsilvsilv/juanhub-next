@@ -24,8 +24,8 @@ interface UploadModalProps {
   fetchImages: () => Promise<void>
 }
 
-const backendUrl = 'http://localhost:8000'
-// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)

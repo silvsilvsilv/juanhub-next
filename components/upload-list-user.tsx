@@ -42,8 +42,8 @@ interface UploadListProps{
   images:Images[]
 }
 
-const backendUrl = 'http://localhost:8000'
-// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export function UploadListUser({fetchImages, images}:UploadListProps) { 
   const [editingUpload, setEditingUpload] = useState<Images | null>(null)
