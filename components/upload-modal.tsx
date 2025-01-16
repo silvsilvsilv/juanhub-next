@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation"
 import axios from 'axios'
 import { SuccessfulUploadModal } from "./uploaded-successful"
 import { useGlobalState } from "@/context/GlobalStateContext"
+import { useToast } from "@/hooks/use-toast"
 
 interface UploadModalProps {
   isOpen: boolean
@@ -49,6 +50,8 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
   }
 
   const { triggerUpdate } = useGlobalState()
+
+  const {toast} = useToast()
   const handleUpload = async () => {
     if (selectedFile && title) {
       
@@ -76,14 +79,22 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
 
         console.log('Image uploaded successfully:', response.data);
         setModal(true)
+        onClose()
       } catch (error) {
+        
+        toast({
+          title: "Upload Failed",
+          description: "Invalid image size. Please try again",
+          variant: "destructive", // Use a variant for error styling
+          duration:8000,
+        });
         console.error('Error uploading image:',error);
       }
 
       await fetchImages()
       // After upload is complete, close the modal and reset the state
       triggerUpdate()
-      onClose()
+      
       setSelectedFile(null)
       setTitle("")
     }

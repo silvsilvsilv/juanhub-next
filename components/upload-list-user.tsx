@@ -67,7 +67,8 @@ export function UploadListUser({fetchImages, images}:UploadListProps) {
 
   const handleEdit = (upload:Images) => {
     setEditingUpload(upload);
-    setNewTitle(upload.title)
+    setNewTitle(upload.title);
+    
   }
 
   const handleSaveEdit = async () => {
@@ -78,6 +79,7 @@ export function UploadListUser({fetchImages, images}:UploadListProps) {
     }
 
     await fetchImages()
+    setEditingUpload(null)
   };
 
   const handleViewImage = (upload: Images) => {
@@ -137,7 +139,7 @@ export function UploadListUser({fetchImages, images}:UploadListProps) {
         </TableBody>
       </Table>
 
-      <Dialog open={!!editingUpload} onOpenChange={() => setEditingUpload(null)}>
+      <Dialog open={ !!editingUpload } onOpenChange={() => setEditingUpload(null)}>
         <DialogContent className='bg-white'>
           <DialogHeader>
             <DialogTitle>Edit Upload Title</DialogTitle>
