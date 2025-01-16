@@ -84,7 +84,7 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
         
         toast({
           title: "Upload Failed",
-          description: "Invalid image size. Please try again",
+          description: "Image size too large. Please try again",
           variant: "destructive", // Use a variant for error styling
           duration:8000,
         });
