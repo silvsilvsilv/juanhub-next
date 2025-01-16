@@ -117,6 +117,7 @@ export function UploadList() {
     }
 
     await fetchImages()
+    setEditingUpload(null)
   };
 
   const handleViewImage = (upload: Images) => {
