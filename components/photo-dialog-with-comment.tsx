@@ -43,8 +43,8 @@ interface Comment {
   }
 }
 
-const backendUrl = 'http://localhost:8000'
-// const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
+// const backendUrl = 'http://localhost:8000'
+const backendUrl = 'https://ivory-llama-451678.hostingersite.com'
 
 export function PhotoDialogWithComment({ isOpen, onClose, photo }: FullSizePhotoDialogProps) {
 
