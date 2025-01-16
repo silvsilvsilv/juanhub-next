@@ -15,9 +15,10 @@ import {
 interface UploadModalProps {
   isOpen: boolean
   onClose: () => void
+  text:string
 }
 
-export function SuccessfulUploadModal({ isOpen, onClose }: UploadModalProps) {
+export function SuccessfulUploadModal({ isOpen, onClose, text }: UploadModalProps) {
 
     const handleConfirmNavigation = () => {
         onClose();
@@ -31,7 +32,7 @@ export function SuccessfulUploadModal({ isOpen, onClose }: UploadModalProps) {
           <CircleCheckBig className="mb-5 h-10 w-10"/>
           <DialogTitle className="text-3xl">Success</DialogTitle>
           <DialogDescription>
-           Your photo was uploaded sucessfully!
+           {text}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

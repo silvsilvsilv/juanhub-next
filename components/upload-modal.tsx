@@ -137,6 +137,7 @@ export function UploadModal({ isOpen, onClose, fetchImages }: UploadModalProps) 
       <SuccessfulUploadModal
         isOpen={modal}
         onClose={()=>setModal(false)}
+        text={"Your photo is pending approval from our admin."}
       />
     </>
     
